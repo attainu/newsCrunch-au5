@@ -63,17 +63,17 @@ $(document).ready(function () {
                 appid: 'f73204efa1bc0b38d1a351f19d7e9d12',
                 units: 'metric',
                 containerid: 'openweathermap-widget-2'
-            });
-            (function () {
-                var script = document.createElement('script');
-                script.async = true;
-                script.charset = "utf-8";
-                script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(script, s);
-            })();
+              });  
+              (function() {
+                  var script = document.createElement('script');
+                  script.async = true;
+                  script.charset = "utf-8";
+                  script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+                  var s = document.getElementsByTagName('script')[0];
+                  s.parentNode.insertBefore(script, s);
+                })();
         }
-
+            
     );
 
 
