@@ -23,23 +23,29 @@
     <div class="row main">
         <div class="col-md-4 left right bg-dark">
             <div class="container">
-                <a href="/"><h4 class="mt-2 ml-2 font-weight-light"><span class="text-success">news</span><span
-                        class="text-light">Crunch</span></h4></a>
+                <a href="/">
+                    <h4 class="mt-2 ml-2 font-weight-light"><span class="text-success">news</span><span
+                            class="text-light">Crunch</span></h4>
+                </a>
                 <div class="row text-white mt-5">
                     <div class="col-8 offset-2">
                         <form action="/login" method="POST">
                             <h5 class="font-weight-light">Log in</h5>
-                            <input type="email"
-                                class="form-control bg-dark mt-3 text-light"
-                                name="email" placeholder="Enter your email" id="email" required>
-                            <input type="password"
-                                class="form-control bg-dark mt-3 text-light"
-                                name="password" placeholder="Enter a password" id="password" required>
+                            <input type="email" class="form-control bg-dark mt-3 text-light" name="email"
+                                placeholder="Enter your email" id="email" required>
+                            <input type="password" class="form-control bg-dark mt-3 text-light" name="password"
+                                placeholder="Enter a password" id="password" required>
                             <button class="btn btn-sm btn-success mt-3" type="submit">Log in</button>
 
                         </form>
                         <p class="mt-2">New user? <a href="/signup" class="text-success">Register</a>.</p>
+                        {{#if loginError}}
+                        <div class="alert alert-danger mt-4">
+                            Email id or password Incorrect.
+                        </div>
+                        {{/if}}
                     </div>
+
                 </div>
 
             </div>

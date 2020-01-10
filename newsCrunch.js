@@ -2,7 +2,9 @@ var express = require("express")
 var app = express();
 var hbs = require("hbs")
 var router = require('./routes/routes')
-var connection = require('./dbInstance')
+const mongoose = require('mongoose');
+const mongoDbUrl = 'mongodb://127.0.0.1:27017/newsCrunch';
+
 //<-------------------------------------------------------Body-parser setup---------------------------------------------------->
 var bodyParser = require("body-parser")
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -18,10 +20,10 @@ app.use(session({
 }))
 
 
+
+mongoose.connect(mongoDbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
 app.use('/',router)
 
-
-
-connection.connect();
 app.listen(3000);
-

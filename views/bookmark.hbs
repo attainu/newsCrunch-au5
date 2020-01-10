@@ -23,7 +23,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" id="newscrunch"><span class="text-success">news</span><span
+            <a class="navbar-brand" href="/"><span class="text-success">news</span><span
                     class="text-light">Crunch</span></a>
 
             <input class="input-group input-group-sm form-control col-6 offset-md-1 offset-sm-1" type="text"
@@ -42,23 +42,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fab fa-instagram text-light"></i></a>
                     </li>
+                    {{#if userId}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user text-light"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/myprofile">My Profile</a>
-                            <a class="dropdown-item" href="#">Bookmarks</a>
+                            <a class="dropdown-item" href="/profile">Profile</a>
+                            <a class="dropdown-item" href="/bookmark">Bookmarks</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
                     </li>
+                    {{else}}
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    </li>
+                    {{/if}}
+
                 </ul>
             </div>
         </nav>
-        <input type="hidden" value="{{id}}">
-
+        <input type="hidden" value="{{userId}}" class="userId">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 p-0">
@@ -67,11 +73,11 @@
                             <div>
                                 <div class="list-group list-group-flush mt-5 p-0">
                                     {{#if topHeadlines}}
-                                    <a href="/homepage"
+                                    <a href="/"
                                         class="list-group-item list-group-item-action border-0 mt-1 selected">Top
                                         Headlines</a>
                                     {{else}}
-                                    <a href="/homepage" class="list-group-item list-group-item-action border-0 mt-1">Top
+                                    <a href="/" class="list-group-item list-group-item-action border-0 mt-1">Top
                                         Headlines</a>
                                     {{/if}}
                                     {{#if general}}
@@ -133,35 +139,142 @@
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="p-3 news">
-                {{#each bookmark}}
+                </div>
+                <div class="col-md-10 border-left">
+                    <div class="row">
+                        <div class="col-md-9 bg-light p-0 news-col">
+                            <h4 class="p-3 bg-white border-bottom border-muted font-weight-lighter">
+                                {{#if topHeadlines}}
+                                Top Headlines
+                                {{/if}}
+                                {{#if general}}
+                                General
+                                {{/if}}
+                                {{#if world}}
+                                World
+                                {{/if}}
+                                {{#if business}}
+                                Business
+                                {{/if}}
+                                {{#if entertainment}}
+                                Entertainment
+                                {{/if}}
+                                {{#if health}}
+                                Health
+                                {{/if}}
+                                {{#if science}}
+                                Science
+                                {{/if}}
+                                {{#if sports}}
+                                Sports
+                                {{/if}}
+                                {{#if technology}}
+                                Technology
+                                {{/if}}
+                            </h4>
 
-                <div class="card mb-3 shadow" style="max-width: 100%;">
-                    <div class="newsCard">
-                        <div class="row no-gutters">
-                            <div class="col-md-3 text-center">
-                                <img src="{{this.img}}" class="card-img mt-3 ml-3" alt="..."
-                                    style="width: 150px; max-width: 150px; max-height:100px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body ml-3">
-                                    <input type="hidden" value="{{this.url}}" id="url-{{@index}}">
-                                    <h6 class="card-title">{{this.title}}</h6>
-                                    <p class="card-text">{{this.name}}</p>
-                                    <p class="card-text"><small class="text-muted">{{this.publishedAt}}</small></p>
+                            <div class="p-3 news">
+                                {{#each bookmark}}
+                                <div class="card mb-3 shadow" style="max-width: 100%;">
+                                    <div class="newsCard">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-3 text-center">
+                                                <img src="{{this.img}}" class="card-img mt-3 ml-3" alt="..."
+                                                    style="width: 150px; max-width: 150px; max-height:100px;">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body ml-3">
+                                                    <input type="hidden" value="{{this.url}}" id="url-{{@index}}">
+                                                    <h6 class="card-title">{{this.title}}</h6>
+                                                    <p class="card-text">{{this.name}}</p>
+                                                    <p class="card-text"><small
+                                                            class="text-muted">{{this.publishedAt}}</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-0 bookmark">
+                                        <div class="col-md-1 offset-md-11">
+                                            <i id="bookmark-{{@index}}" class="far fa-bookmark mb-3"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {{/each}}
+                                <div class="row mt-5">
+                                    <div class="col-md-4 offset-md-4 ">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                {{#if topHeadlines}}
+                                                <li class="page-item"><a class="page-link bg-success text-white"
+                                                        href="?page=1">1</a></li>
+                                                <li class="page-item"><a class="page-link bg-success text-white"
+                                                        href="?page=2">2</a></li>
+                                                {{else}}
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?page=1">1</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?page=2">2</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?page=3">3</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?page=4">4</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?page=5">5</a></li>
+                                                {{/if}}
+
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
+                        <div class="col-md-3 mt-3 text-center weather">
+                            <div class="container">
+                                <div id="openweathermap-widget-2"></div>
+                            </div>
+
+                        </div>
+
+
                     </div>
-
                 </div>
-                {{/each}}
+
             </div>
-
-
         </div>
-
+    </div>
+    <!-- /#page-content-wrapper -->
+    <!-- MODAL -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    {{!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="{{userCity}}" id="city">
 </body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="js/homepage.js"></script>
+
+
 
 </html>

@@ -1,69 +1,79 @@
-const connection = require('../dbInstance')
+const UserModel = require('../models/user.model')
 
-module.exports.postSignup =  function(req,res){
-    const db = connection.get();
-    db.collection("users").findOne({ email: req.body.email }, function (err, userexist) {
-        if (err) console.log("error in /signup", err)
-        console.log("user exist in databse", userexist)
-        if (userexist) {
-            res.redirect("/signup?userExist=true")
-        }
-        else {
-            var users = {
-                name: req.body.name,
-                email: req.body.email,
-                mobile: req.body.mobile,
-                password: req.body.password,
-                city: req.body.city,
-                state: req.body.state,
-                country: req.body.country
-            }
-            console.log("users object created", users)
-            db.collection("users").insertOne(users, function (error, users) {
-                if (error) {
-                    console.log("err in insertOne signup", err)
-                }
-                else {
-                    res.redirect("/signup?signupSuccess=true")
-                }
-            })
+//<----------------------------------Signup get route---------------------------->
 
-        }
-    })
-
-}
-
-module.exports.getSignup = function(req,res){
+module.exports.getSignup = function (req, res) {
     res.render("signup.hbs", {
         signupSuccess: req.query.signupSuccess,
         userExist: req.query.userExist
 
     })
 }
+//<----------------------------------Signup post route---------------------------->
+
+module.exports.postSignup = function (req, res) {
+    console.log('city', req.body.city)
+    UserModel.findOne({ email: req.body.email }).exec()
+        .then(function (userexist) {
+            if (userexist) {
+                res.redirect("/signup?userExist=true")
+            } else {
+                const model = new UserModel({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: req.body.password,
+                    city: req.body.city,
+                    state: req.body.state,
+                    country: req.body.country
+                })
+                model
+                    .save()
+                    .then((user) => {
+                        res.redirect("/signup?signupSuccess=true")
+                    })
+                    .catch(err => {
+                        console.log('error in save post signup.', err)
+                    })
+            }
+        })
+        .catch(function (err) {
+            console.log('error in findOne Post route.')
+        })
 
 
-module.exports.getLogin = function(req,res){
+}
+
+
+//<----------------------------------Login get route---------------------------->
+
+module.exports.getLogin = function (req, res) {
     res.render("login.hbs", {
         loginError: req.query.loginError,
     })
 }
 
+//<----------------------------------Login post route---------------------------->
 
+module.exports.postLogin = function (req, res) {
+    UserModel.findOne({ $and: [{ email: req.body.email }, { password: req.body.password }] })
+        .then((user) => {
+            if (user) {
+                req.session.user = {
+                    id: user._id,
+                    userCity: user.city
+                }
+                console.log("session id", req.session.user.id)
+                res.redirect("/")
+            } else {
+                res.redirect("/login?loginError=true")
 
-module.exports.postLogin = function(req,res){
-    const db = connection.get();
-    db.collection("users").find({ $and: [{ email: req.body.email }, { password: req.body.password }] }).toArray(function (error, users) {
-        //  console.log("users",users)
-        if (users.length != 0) {
-            req.session.user = {
-                id: users[0]._id,
             }
-            //console.log("session id",req.session.user.id)
-            res.redirect("/homepage")
-        }
-        else {
-            res.redirect("/login?loginError=true")
+        })
+}
 
-        }
-    })
+//<----------------------------------Logout post route---------------------------->
+
+module.exports.getlogout = function (req, res) {
+    req.session.destroy()
+    res.redirect("/")
 }

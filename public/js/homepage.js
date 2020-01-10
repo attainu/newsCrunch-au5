@@ -10,8 +10,8 @@ $(document).ready(function () {
 
     //...................................................MODAL...................................................//
     function showmodal() {
-        $('.card').click(function () {
-            var index = $(this).index('.card')
+        $('.newsCards').click(function () {
+            var index = $(this).index('.newsCards')
             var name = $('#source-' + index).val()
             var img = $('#urlToImage-' + index).val()
             var author = $('#author-' + index).val()
@@ -43,13 +43,13 @@ $(document).ready(function () {
 
 
     //...................................................WEATHER...................................................//
-    if($('#city').val()){
+    if ($('#city').val()) {
         var city = $('#city').val();
     }
-    else{
+    else {
         var city = 'new delhi'
     }
-    
+
 
     $.getJSON(
         "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -63,17 +63,17 @@ $(document).ready(function () {
                 appid: 'f73204efa1bc0b38d1a351f19d7e9d12',
                 units: 'metric',
                 containerid: 'openweathermap-widget-2'
-              });  
-              (function() {
-                  var script = document.createElement('script');
-                  script.async = true;
-                  script.charset = "utf-8";
-                  script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-                  var s = document.getElementsByTagName('script')[0];
-                  s.parentNode.insertBefore(script, s);
-                })();
+            });
+            (function () {
+                var script = document.createElement('script');
+                script.async = true;
+                script.charset = "utf-8";
+                script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(script, s);
+            })();
         }
-            
+
     );
 
 
@@ -151,6 +151,53 @@ $(document).ready(function () {
     //     });
     // })
 
+    //<----------------Add bookmark-------------->
+
+    $('.bookmark').click(function () {
+        var id = $(".userId").val()
+        console.log(id)
+        if (id) {
+
+            var index = $('.bookmark').index(this)
+            var name = $('#source-' + index).val()
+            console.log(name);
+            var img = $('#urlToImage-' + index).val();
+            console.log(img);
+            var author = $('#author-' + index).val();
+            console.log(author);
+            var title = $('#title-' + index).val()
+            var description = $('#description-' + index).val()
+            var url = $('#url-' + index).val()
+            var publishedAt = $('#publishedAt-' + index).val()
+            var content = $('#content-' + index).val()
+            console.log(content)
+            content = content.substr(0, 100)
+            var bookmark = {
+                index: index,
+                name: name,
+                img: img,
+                author: author,
+                title: title,
+                description: description,
+                url: url,
+                publishedAt: publishedAt,
+                content: content,
+                id: id
+            }
+            $.ajax({
+                method: "POST",
+                datatype: 'JSON',
+                url: "/bookmark",
+                data: bookmark,
+                success: function (response) {
+                    console.log(response)
+                }
+            })
+        } else {
+            window.location.href = "/login"
+        }
+
+    })
 });
 
 
