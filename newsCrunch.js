@@ -26,4 +26,4 @@ mongoose.connect(mongoDbUrl, { useNewUrlParser: true, useUnifiedTopology: true }
 
 app.use('/',router)
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000 );
