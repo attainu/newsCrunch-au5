@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
 const UserModel = require('../models/user.model')
 
+//<----------------------------------get bookmark route--------------------------->
+
 module.exports.getBookmark = function (req, res) {
     UserModel.findById({ _id: mongoose.Types.ObjectId(req.session.user.id) }).exec()
         .then(function (user) {
@@ -15,6 +17,7 @@ module.exports.getBookmark = function (req, res) {
 }
 
 
+//<----------------------------------post bookmark route--------------------------->
 
 module.exports.postBookmark = function (req, res) {
     var id = mongoose.Types.ObjectId(req.body.id)
@@ -44,7 +47,7 @@ module.exports.postBookmark = function (req, res) {
             else {
                 bookmarkArr.push(bookmark)
             }
-            console.log('userType', bookmarkArr)
+            //  console.log('userType', bookmarkArr)
             UserModel.update({ _id: id }, { $set: { "bookmark": bookmarkArr } }).exec()
                 .then(function (user) {
                     console.log(user)
@@ -56,4 +59,38 @@ module.exports.postBookmark = function (req, res) {
         })
 
     res.send('ok');
+}
+
+//<----------------------------------remove bookmark route--------------------------->
+
+module.exports.removeBookmark = function (req, res) {
+    var id = mongoose.Types.ObjectId(req.body.id)
+    var removeBookmark = {
+        index: req.body.index,
+        title: req.body.title,
+        id: req.body.id
+    }
+    UserModel.findById({ _id: id }).exec()
+        .then(function (user) {
+            console.log(user)
+            if (user.bookmark) {
+                console.log("in user.bookmark")
+                let bookmarkArr = user.bookmark
+                updatedBookmarks = bookmarkArr.filter(bookmark => !(bookmark.title == removeBookmark.title))
+
+
+                UserModel.update({ _id: id }, { $set: { "bookmark": updatedBookmarks } }).exec()
+                    .then(function (user) {
+                        console.log(user)
+                        res.status(200).send('OK')
+                    })
+                    .catch(function (err) {
+                        res.status(204).send('Error')
+                        console.log("error in update boomark", err)
+                    })
+
+            }
+
+
+        })
 }

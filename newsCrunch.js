@@ -3,7 +3,7 @@ var app = express();
 var hbs = require("hbs")
 var router = require('./routes/routes')
 const mongoose = require('mongoose');
-const mongoDbUrl = 'mongodb://127.0.0.1:27017/newsCrunch';
+const mongoDbUrl = 'mongodb+srv://khushbu:khushbu123@newscrunch-paimi.mongodb.net/newsCrunch?retryWrites=true&w=majority';
 var cloudinary = require('cloudinary').v2
 
 //<-------------------------------------------------------Body-parser setup---------------------------------------------------->
@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static("public"))
 app.use(express.static("uploads"))
-app.set("view engine","hbs")
+app.set("view engine", "hbs")
 //<----------------------------------------------------express-session setup------------------------------------------------->
 var session = require("express-session")
 app.use(session({
@@ -30,6 +30,6 @@ cloudinary.config({
 mongoose.connect(mongoDbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-app.use('/',router)
+app.use('/', router)
 
-app.listen(process.env.PORT || 3000 );
+app.listen(process.env.PORT || 3000);

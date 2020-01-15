@@ -60,7 +60,7 @@ module.exports.postLogin = function (req, res) {
     UserModel.findOne({ $and: [{ email: req.body.email }, { password: req.body.password }] })
         .then((user) => {
             if (user) {
-                req.session.user = { 
+                req.session.user = {
                     id: user._id
                 }
                 console.log("session id", req.session.user.id)
@@ -100,22 +100,22 @@ module.exports.postUserUpdate = function (req, res) {
             var form = new multiparty.Form({})
             form.parse(req, function (err, fields, files) {
                 var data = {}
-                if (files.photo[0].size != 0){
+                if (files.photo[0].size != 0) {
                     cloudinary.uploader.upload(files.photo[0].path, function (error, result) {
                         console.log('THIS IS RESULT URL', result.url)
                         data.photo = result.url
                         if (fields.name[0].length != 0) {
                             data.name = fields.name[0]
                         }
-                        
+
                         if (fields.country[0].length != 0) {
                             data.country = fields.country[0]
                         }
-        
+
                         if (fields.state[0].length != 0) {
                             data.state = fields.state[0]
                         }
-        
+
                         if (fields.city[0].length != 0) {
                             data.city = fields.city[0]
                         }
@@ -129,19 +129,19 @@ module.exports.postUserUpdate = function (req, res) {
                         })
                     });
                 }
-                else{
+                else {
                     if (fields.name[0].length != 0) {
                         data.name = fields.name[0]
                     }
-                    
+
                     if (fields.country[0].length != 0) {
                         data.country = fields.country[0]
                     }
-    
+
                     if (fields.state[0].length != 0) {
                         data.state = fields.state[0]
                     }
-    
+
                     if (fields.city[0].length != 0) {
                         data.city = fields.city[0]
                     }
@@ -154,7 +154,7 @@ module.exports.postUserUpdate = function (req, res) {
                         }
                     })
                 }
-                
+
 
             })
         }

@@ -58,6 +58,7 @@ router.post('/userupdate', userController.postUserUpdate)
 router.get('/bookmark', bookmarkController.getBookmark)
 router.post('/bookmark', bookmarkController.postBookmark)
 
+router.delete('/removeBookmark', bookmarkController.removeBookmark)
 
 //<-------------logout route----------------->
 router.get('/logout', userController.getlogout)

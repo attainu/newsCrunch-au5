@@ -69,7 +69,7 @@
             <div class="container">
                 <div class="border rounded shadow p-3 text-center p-2">
                     {{#if user.photo}}
-                    <img class="border rounded-circle" src="{{user.photo}}" alt=""
+                    <img class="border rounded-circle" src="{{user.photo}}" alt="" accept="image/*"
                         style="min-height: 175px; max-height:175px; min-width:175px; max-width: 175px;">
                     {{else}}
                     <img class="border rounded-circle"
@@ -134,7 +134,7 @@
                     <div class="modal-body">
                         <label for="photo" class="mt-3">Photo</label>
                         <input type="file" class="form-control mt-1" name="photo" placeholder="Insert a picture"
-                            value="{{user.photo}}">
+                            accept="image/*" value="{{user.photo}}">
                         <label for="name" class="mt-3">Full name</label>
                         <input type="text" class="form-control mt-1" name="name" placeholder="Full name"
                             value="{{user.name}}">

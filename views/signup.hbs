@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register on NewsCrunch</title>
-    <link rel="shortcut icon" href="pictures/logo_ico.ico"/>
+    <link rel="shortcut icon" href="pictures/logo_ico.ico" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -49,13 +49,20 @@
                                 placeholder="Enter a password" id="password" required>
                             <input type="password" class="form-control bg-dark mt-3 text-light" name="cfpassword"
                                 placeholder="Confirm password" id="cfpassword" required>
-                            <button class="btn btn-sm btn-success mt-3" id="button" type="submit" disabled>Register</button>
+                            <button class="btn btn-sm btn-success mt-3" id="button" type="submit"
+                                disabled>Register</button>
 
                         </form>
                         <p class="mt-2">Already a member? <a href="/login" class="text-success">Login</a>.</p>
                         {{#if signupSuccess}}
                         <div class="alert alert-success mt-4">
                             Congratulation!! You have signup Successfully.
+                        </div>
+                        {{/if}}
+
+                        {{#if userExist}}
+                        <div class="alert alert-danger mt-4">
+                            This email id is already registered in our database.
                         </div>
                         {{/if}}
                     </div>

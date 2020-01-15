@@ -2,6 +2,8 @@ var newsAPI = require('newsapi')
 var newsapi = new newsAPI('6da45a39dd794e0e89c6511a18cb477a')
 const UserModel = require('../models/user.model')
 
+//<----------------------------------Homepage route--------------------------->
+
 module.exports.homepage = function (req, res) {
     if (req.query.page) {
         var page = req.query.page
@@ -36,6 +38,8 @@ module.exports.homepage = function (req, res) {
     })
 }
 
+//<----------------------------------World route--------------------------->
+
 module.exports.getWorld = function (req, res) {
     if (req.query.page) {
         var page = req.query.page
@@ -68,6 +72,7 @@ module.exports.getWorld = function (req, res) {
     })
 }
 
+//<----------------------------------Business route--------------------------->
 
 module.exports.getBusiness = function (req, res) {
     if (req.query.page) {
@@ -119,6 +124,8 @@ module.exports.getBusiness = function (req, res) {
     })
 }
 
+//<----------------------------------Entertainment route--------------------------->
+
 module.exports.getEntertainment = function (req, res) {
     if (req.query.page) {
         var page = req.query.page
@@ -169,7 +176,7 @@ module.exports.getEntertainment = function (req, res) {
 }
 
 
-
+//<----------------------------------General route--------------------------->
 
 module.exports.getGeneral = function (req, res) {
     if (req.query.page) {
@@ -202,7 +209,7 @@ module.exports.getGeneral = function (req, res) {
                 })
             })
         }
-        else{
+        else {
             var sources = response.sources.map(function (a) {
                 return a.id
             })
@@ -220,6 +227,7 @@ module.exports.getGeneral = function (req, res) {
     })
 }
 
+//<----------------------------------Health route--------------------------->
 
 module.exports.getHealth = function (req, res) {
     if (req.query.page) {
@@ -252,7 +260,7 @@ module.exports.getHealth = function (req, res) {
                 })
             })
         }
-        else{
+        else {
             var sources = response.sources.map(function (a) {
                 return a.id
             })
@@ -270,6 +278,7 @@ module.exports.getHealth = function (req, res) {
     })
 }
 
+//<----------------------------------Science route--------------------------->
 
 module.exports.getScience = function (req, res) {
     if (req.query.page) {
@@ -302,7 +311,7 @@ module.exports.getScience = function (req, res) {
                 })
             })
         }
-        else{
+        else {
             var sources = response.sources.map(function (a) {
                 return a.id
             })
@@ -320,7 +329,7 @@ module.exports.getScience = function (req, res) {
     })
 }
 
-
+//<----------------------------------Sports route--------------------------->
 
 module.exports.getSports = function (req, res) {
     if (req.query.page) {
@@ -353,7 +362,7 @@ module.exports.getSports = function (req, res) {
                 })
             })
         }
-        else{
+        else {
             var sources = response.sources.map(function (a) {
                 return a.id
             })
@@ -371,6 +380,7 @@ module.exports.getSports = function (req, res) {
     })
 }
 
+//<----------------------------------Technology route--------------------------->
 
 module.exports.getTechnology = function (req, res) {
     if (req.query.page) {
@@ -403,7 +413,7 @@ module.exports.getTechnology = function (req, res) {
                 })
             })
         }
-        else{
+        else {
             var sources = response.sources.map(function (a) {
                 return a.id
             })
@@ -421,6 +431,7 @@ module.exports.getTechnology = function (req, res) {
     })
 }
 
+//<----------------------------------Search route--------------------------->
 
 module.exports.postSearch = function (req, res) {
     if (req.query.page) {

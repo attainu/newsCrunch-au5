@@ -57,22 +57,22 @@ $(document).ready(function () {
         "&appid=fefcb07c01516af278fab70347d82a40",
         function (data) {
             window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
-              window.myWidgetParam.push({
-                  id: 5,
-                  cityid: data.id,
-                  appid: 'f73204efa1bc0b38d1a351f19d7e9d12',
-                  units: 'metric',
-                  containerid: 'openweathermap-widget-5',
-                  });  
-                  (function() {
-                      var script = document.createElement('script');
-                      script.async = true;script.charset = "utf-8";
-                      script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-                      var s = document.getElementsByTagName('script')[0];
-                      s.parentNode.insertBefore(script, s);
-                    })();
+            window.myWidgetParam.push({
+                id: 5,
+                cityid: data.id,
+                appid: 'f73204efa1bc0b38d1a351f19d7e9d12',
+                units: 'metric',
+                containerid: 'openweathermap-widget-5',
+            });
+            (function () {
+                var script = document.createElement('script');
+                script.async = true; script.charset = "utf-8";
+                script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(script, s);
+            })();
         }
-            
+
     );
 
 
@@ -198,9 +198,35 @@ $(document).ready(function () {
         }
 
     })
+
+    //<----------------Remove bookmark-------------->
+
+    $('.removeBookmark').click(function () {
+        var id = $(".userId").val()
+        console.log(id)
+        if (id) {
+
+            var index = $('.removeBookmark').index(this)
+            var title = $('#title-' + index).val()
+            var bookmark = {
+                index: index,
+                title: title,
+                id: id
+            }
+            $.ajax({
+                method: "DELETE",
+                datatype: 'JSON',
+                url: "/removeBookmark",
+                data: bookmark,
+                success: function (response) {
+                    console.log(response)
+                    window.location.href = "/bookmark"
+
+                }
+            })
+        } else {
+            window.location.href = "/login"
+        }
+
+    })
 });
-
-
-
-
-
