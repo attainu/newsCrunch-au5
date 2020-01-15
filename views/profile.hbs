@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet"href="css/profile.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 
 <body>
@@ -56,7 +56,7 @@
                         <a class="nav-link text-light" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
                     </li>
                     {{/if}}
-                    
+
                 </ul>
             </div>
         </nav>
@@ -95,7 +95,7 @@
                                 <li class="proLi" style="width: 80%;">Country: {{user.country}}</li>
                                 <li class="proLi" style="width: 70%;">State: {{user.state}}</li>
                                 <li class="proLi" style="width: 60%;">City: {{user.city}} </li>
-                                
+
                             </ul>
                         </div>
                         <div class="col-md-3 offset-md-1 mt-5">
@@ -105,8 +105,12 @@
                     </div>
 
                 </div>
-                <div class="col-md-4 mt-5">
-                    <div class="ml-4" id="openweathermap-widget-2"></div>
+                <div class="col-md-4 mt-5 mb-3 text-center weather">
+                    <div class="container">
+                        <div class="row">
+                            <div id="openweathermap-widget-5"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

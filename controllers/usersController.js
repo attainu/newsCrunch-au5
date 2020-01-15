@@ -1,5 +1,6 @@
 const UserModel = require('../models/user.model')
 const multiparty = require('multiparty')
+const cloudinary = require('cloudinary').v2
 
 //<----------------------------------Signup get route---------------------------->
 
@@ -96,35 +97,64 @@ module.exports.postUserUpdate = function (req, res) {
             console.log(error)
         }
         else {
-            var form = new multiparty.Form({ uploadDir: 'uploads' })
+            var form = new multiparty.Form({})
             form.parse(req, function (err, fields, files) {
                 var data = {}
-                if (files.photo[0].size != 0) {
-                    data.photo = files.photo[0].path.replace('uploads\\', '');
+                if (files.photo[0].size != 0){
+                    cloudinary.uploader.upload(files.photo[0].path, function (error, result) {
+                        console.log('THIS IS RESULT URL', result.url)
+                        data.photo = result.url
+                        if (fields.name[0].length != 0) {
+                            data.name = fields.name[0]
+                        }
+                        
+                        if (fields.country[0].length != 0) {
+                            data.country = fields.country[0]
+                        }
+        
+                        if (fields.state[0].length != 0) {
+                            data.state = fields.state[0]
+                        }
+        
+                        if (fields.city[0].length != 0) {
+                            data.city = fields.city[0]
+                        }
+                        UserModel.updateOne({ _id: req.session.user.id }, { $set: data }, function (err, result) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.redirect('/profile')
+                            }
+                        })
+                    });
                 }
-                if (fields.name[0].length != 0) {
-                    data.name = fields.name[0]
-                }
-
-                if (fields.country[0].length != 0) {
-                    data.country = fields.country[0]
-                }
-
-                if (fields.state[0].length != 0) {
-                    data.state = fields.state[0]
-                }
-
-                if (fields.city[0].length != 0) {
-                    data.city = fields.city[0]
-                }
-                UserModel.updateOne({ _id: req.session.user.id }, { $set: data }, function (err, result) {
-                    if (err) {
-                        console.log(err);
+                else{
+                    if (fields.name[0].length != 0) {
+                        data.name = fields.name[0]
                     }
-                    else {
-                        res.redirect('/profile')
+                    
+                    if (fields.country[0].length != 0) {
+                        data.country = fields.country[0]
                     }
-                })
+    
+                    if (fields.state[0].length != 0) {
+                        data.state = fields.state[0]
+                    }
+    
+                    if (fields.city[0].length != 0) {
+                        data.city = fields.city[0]
+                    }
+                    UserModel.updateOne({ _id: req.session.user.id }, { $set: data }, function (err, result) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            res.redirect('/profile')
+                        }
+                    })
+                }
+                
 
             })
         }

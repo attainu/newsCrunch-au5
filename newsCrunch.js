@@ -4,6 +4,7 @@ var hbs = require("hbs")
 var router = require('./routes/routes')
 const mongoose = require('mongoose');
 const mongoDbUrl = 'mongodb://127.0.0.1:27017/newsCrunch';
+var cloudinary = require('cloudinary').v2
 
 //<-------------------------------------------------------Body-parser setup---------------------------------------------------->
 var bodyParser = require("body-parser")
@@ -19,8 +20,12 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
-
-
+//<-------------------------------------------------------Cloudinary setup---------------------------------------------------->
+cloudinary.config({
+    cloud_name: "chaitanyakulkarni",
+    api_key: "292734224172813",
+    api_secret: "zVUf1_R1QLHnZCGyY5tWkati6b0"
+})
 
 mongoose.connect(mongoDbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
