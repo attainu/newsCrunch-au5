@@ -91,6 +91,7 @@ $(document).ready(function () {
                 success: function (response) {
                     $('.news').empty();
                     response.articles.forEach(function (a) {
+                        $('#title').html('Search')
                         $('.news').append('<div class="card mb-3 shadow" style="max-width: 100%;">')
                         $('.card').last().append('<input type="hidden" value="' + a.source.name + '" id="source-' + response.articles.indexOf(a) + '">')
                         $('.card').last().append('<input type="hidden" value="' + a.author + '" id="author-' + response.articles.indexOf(a) + '">')

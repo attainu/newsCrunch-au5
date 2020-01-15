@@ -6,8 +6,8 @@ module.exports.getBookmark = function (req, res) {
         .then(function (user) {
             if (user) {
                 res.render("bookmark", {
-                    userCity: req.session.user.userCity,
-                    userId: req.session.user.id,
+                    userCity: user.city,
+                    userId: user.id,
                     bookmark: user.bookmark
                 })
             }
@@ -21,7 +21,7 @@ module.exports.postBookmark = function (req, res) {
     console.log(req.body.id)
     var bookmark = {
         index: req.body.index,
-        boomarkname: req.body.name,
+        name: req.body.name,
         img: req.body.img,
         author: req.body.author,
         title: req.body.title,

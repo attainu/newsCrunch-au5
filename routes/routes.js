@@ -17,6 +17,8 @@ router.post('/signup', userController.postSignup)
 router.get('/login', userController.getLogin)
 router.post('/login', userController.postLogin)
 
+//<-------------search route----------------->
+router.post('/search', categoryController.postSearch)
 
 //<-------------categories route----------------->
 router.get('/world', categoryController.getWorld)
@@ -43,6 +45,14 @@ router.use(function (req, res, next) {
         res.redirect("/")
     }
 })
+
+//<-------------profile route----------------->
+router.get('/profile', userController.getProfile)
+
+
+//<-------------profile update route----------------->
+router.post('/userupdate', userController.postUserUpdate)
+
 
 //<-------------bookmark route----------------->
 router.get('/bookmark', bookmarkController.getBookmark)

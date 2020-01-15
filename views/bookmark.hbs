@@ -23,11 +23,8 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/"><span class="text-success">news</span><span
+            <i class="fas fa-bars text-light" id="newscrunch"></i>&nbsp;&nbsp;<a class="navbar-brand" href="/"><span class="text-success">news</span><span
                     class="text-light">Crunch</span></a>
-
-            <input class="input-group input-group-sm form-control col-6 offset-md-1 offset-sm-1" type="text"
-                placeholder="Search" id="search">
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,39 +141,21 @@
                     <div class="row">
                         <div class="col-md-9 bg-light p-0 news-col">
                             <h4 class="p-3 bg-white border-bottom border-muted font-weight-lighter">
-                                {{#if topHeadlines}}
-                                Top Headlines
-                                {{/if}}
-                                {{#if general}}
-                                General
-                                {{/if}}
-                                {{#if world}}
-                                World
-                                {{/if}}
-                                {{#if business}}
-                                Business
-                                {{/if}}
-                                {{#if entertainment}}
-                                Entertainment
-                                {{/if}}
-                                {{#if health}}
-                                Health
-                                {{/if}}
-                                {{#if science}}
-                                Science
-                                {{/if}}
-                                {{#if sports}}
-                                Sports
-                                {{/if}}
-                                {{#if technology}}
-                                Technology
-                                {{/if}}
+                                Bookmarks
                             </h4>
 
                             <div class="p-3 news">
                                 {{#each bookmark}}
                                 <div class="card mb-3 shadow" style="max-width: 100%;">
-                                    <div class="newsCard">
+                                    <div class="newsCards">
+                                        <input type="hidden" value="{{this.source.name}}" id="source-{{@index}}">
+                                        <input type="hidden" value="{{this.author}}" id="author-{{@index}}">
+                                        <input type="hidden" value="{{this.title}}" id="title-{{@index}}">
+                                        <input type="hidden" value="{{this.description}}" id="description-{{@index}}">
+                                        <input type="hidden" value="{{this.url}}" id="url-{{@index}}">
+                                        <input type="hidden" value="{{this.img}}" id="urlToImage-{{@index}}">
+                                        <input type="hidden" value="{{this.publishedAt}}" id="publishedAt-{{@index}}">
+                                        <input type="hidden" value="{{this.content}}" id="content-{{@index}}">
                                         <div class="row no-gutters">
                                             <div class="col-md-3 text-center">
                                                 <img src="{{this.img}}" class="card-img mt-3 ml-3" alt="..."
@@ -195,39 +174,13 @@
                                     </div>
 
                                     <div class="row mt-0 bookmark">
-                                        <div class="col-md-1 offset-md-11">
-                                            <i id="bookmark-{{@index}}" class="far fa-bookmark mb-3"></i>
+                                        <div class="col-sm-1 offset-sm-11 offset-10">
+                                            <i id="bookmark-{{@index}}" class="far fa-trash-alt mb-3"></i>
                                         </div>
                                     </div>
 
                                 </div>
                                 {{/each}}
-                                <div class="row mt-5">
-                                    <div class="col-md-4 offset-md-4 ">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination">
-                                                {{#if topHeadlines}}
-                                                <li class="page-item"><a class="page-link bg-success text-white"
-                                                        href="?page=1">1</a></li>
-                                                <li class="page-item"><a class="page-link bg-success text-white"
-                                                        href="?page=2">2</a></li>
-                                                {{else}}
-                                                <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=1">1</a></li>
-                                                <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=2">2</a></li>
-                                                <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=3">3</a></li>
-                                                <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=4">4</a></li>
-                                                <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=5">5</a></li>
-                                                {{/if}}
-
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
                             </div>
 
 
@@ -273,7 +226,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-<script src="js/homepage.js"></script>
+<script src="js/homepage-bookmark.js"></script>
 
 
 

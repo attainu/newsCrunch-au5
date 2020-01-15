@@ -10,6 +10,7 @@ var bodyParser = require("body-parser")
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static("public"))
+app.use(express.static("uploads"))
 app.set("view engine","hbs")
 //<----------------------------------------------------express-session setup------------------------------------------------->
 var session = require("express-session")

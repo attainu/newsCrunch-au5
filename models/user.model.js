@@ -6,7 +6,8 @@ const userSchema = mongoose.Schema({
     state: { type: String },
     city: { type: String },
     password: { type: String },
-    bookmark: { type: [] }
+    bookmark: { type: [] },
+    photo: {type: String}
 
 })
 
