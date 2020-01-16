@@ -8,6 +8,7 @@ module.exports.getBookmark = function (req, res) {
         .then(function (user) {
             if (user) {
                 res.render("bookmark", {
+                    user: user,
                     userCity: user.city,
                     userId: user.id,
                     bookmark: user.bookmark
@@ -48,7 +49,7 @@ module.exports.postBookmark = function (req, res) {
                 bookmarkArr.push(bookmark)
             }
             //  console.log('userType', bookmarkArr)
-            UserModel.update({ _id: id }, { $set: { "bookmark": bookmarkArr } }).exec()
+            UserModel.updateOne({ _id: id }, { $set: { "bookmark": bookmarkArr } }).exec()
                 .then(function (user) {
                     console.log(user)
                 })
@@ -79,7 +80,7 @@ module.exports.removeBookmark = function (req, res) {
                 updatedBookmarks = bookmarkArr.filter(bookmark => !(bookmark.title == removeBookmark.title))
 
 
-                UserModel.update({ _id: id }, { $set: { "bookmark": updatedBookmarks } }).exec()
+                UserModel.updateOne({ _id: id }, { $set: { "bookmark": updatedBookmarks } }).exec()
                     .then(function (user) {
                         console.log(user)
                         res.status(200).send('OK')

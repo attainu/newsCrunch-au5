@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/usersController')
 const categoryController = require('../controllers/categoryController')
 const bookmarkController = require('../controllers/bookmarkController')
+const interestController = require('../controllers/interestController')
 
 
 
@@ -59,6 +60,10 @@ router.get('/bookmark', bookmarkController.getBookmark)
 router.post('/bookmark', bookmarkController.postBookmark)
 
 router.delete('/removeBookmark', bookmarkController.removeBookmark)
+
+//<-------------interests route----------------->
+router.post('/addinterest', interestController.postInterest)
+router.get('/interests', interestController.getInterest)
 
 //<-------------logout route----------------->
 router.get('/logout', userController.getlogout)

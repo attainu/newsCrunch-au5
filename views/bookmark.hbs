@@ -138,7 +138,7 @@
                 <div class="col-md-10 border-left">
                     <div class="row">
                         <div class="col-md-8 bg-light p-0 news-col">
-                            <h4 class="p-3 bg-white border-bottom border-muted font-weight-lighter">
+                            <h4 class="p-3 bg-white border-bottom border-muted text-success text-center">
                                 Bookmarks
                             </h4>
 
@@ -183,14 +183,53 @@
 
 
                         </div>
-                        <div class="col-md-4 mt-3 mb-3 text-center weather">
+                        <div class="col-md-4 py-3 text-center weather border-left">
                             <div class="container ml-3">
                                 <div class="row">
                                     <div id="openweathermap-widget-5"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="m-5 p-5 border border-dark w-100">
-                                        Ad Box!
+                                    <div class="my-3 mr-5 py-2 px-2 border border rounded w-100"
+                                        style="min-height: 40vh; max-height: 40vh">
+                                        {{#if user}}
+                                        {{#if user.interests.length}}
+                                        <div><h5 class="font-weight-lighter text-center">Interests</h5></div>
+                                        <div id="allinterests" style="height: 65%; max-height: 65%; overflow-y:auto">
+                                            {{#each user.interests}}
+                                            <a href="/interests?q={{this}}"
+                                                class="btn btn-sm border text-muted m-1">{{this}}</a>
+                                            {{/each}}
+                                        </div>
+                                        <div id="interestcol">
+
+                                        </div>
+                                        {{!-- Ad Box! --}}
+                                        <div>
+                                            <button
+                                                class="btn btn-sm btn-outline-success rounded-circle float-right m-2"
+                                                type="button" id="new"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        {{else}}
+                                        <div class="p-5">
+                                            <h5 class="font-weight-lighter text-center">Add your interests here.</h5>
+                                            <button
+                                                class="btn btn-sm btn-outline-success rounded float-center m-2"
+                                                type="button" id="new"><i class="fas fa-plus"></i> Add Interest</button>
+                                        </div>
+                                        <div id="interestcol">
+
+                                        </div>
+                                        {{/if}}
+                                        {{else}}
+                                        <div class="p-5">
+                                            <h5 class="font-weight-lighter text-center">Log in to add interests.</h5>
+                                            <a href="/login"
+                                                class="btn btn-sm btn-outline-success rounded float-center m-2"><i class="fas fa-sign-in-alt"></i> Log In</a>
+                                        </div>
+                                        <div id="interestcol">
+
+                                        {{/if}}
+
                                     </div>
                                 </div>
                             </div>

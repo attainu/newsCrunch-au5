@@ -141,7 +141,8 @@
                 <div class="col-md-10 border-left">
                     <div class="row">
                         <div class="col-md-8 bg-light p-0 news-col">
-                            <h4 class="p-3 bg-white border-bottom border-muted font-weight-dark text-center " id="title">
+                            <h4 class="p-3 bg-white border-bottom border-muted text-success text-center "
+                                id="title">
                                 {{#if topHeadlines}}
                                 Top Headlines
                                 {{/if}}
@@ -168,6 +169,9 @@
                                 {{/if}}
                                 {{#if technology}}
                                 Technology
+                                {{/if}}
+                                {{#if query}}
+                                {{query}}
                                 {{/if}}
                             </h4>
                             <div class="p-3 news">
@@ -216,6 +220,18 @@
                                                 <li class="page-item"><a class="page-link bg-success text-white"
                                                         href="?page=2">2</a></li>
                                                 {{else}}
+                                                {{#if query}}
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{query}}&page=1">1</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{query}}&page=2">2</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{query}}&page=3">3</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{query}}&page=4">4</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{query}}&page=5">5</a></li>
+                                                {{else}}
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?page=1">1</a></li>
                                                 <li class="page-item "><a class="page-link bg-success text-white"
@@ -225,9 +241,9 @@
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?page=4">4</a></li>
                                                 <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=5">5</a></li>
+                                                        href="?page=5">5</a></li>        
                                                 {{/if}}
-
+                                                {{/if}}
                                             </ul>
                                         </nav>
                                     </div>
@@ -236,14 +252,53 @@
 
 
                         </div>
-                        <div class="col-md-4 mt-3 mb-3 text-center weather">
+                        <div class="col-md-4 py-3 text-center weather">
                             <div class="container ml-3">
                                 <div class="row">
                                     <div id="openweathermap-widget-5"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="m-5 p-5 border border-dark w-100">
-                                        Ad Box!
+                                    <div class="my-3 mr-5 py-2 px-2 border border rounded w-100"
+                                        style="min-height: 40vh; max-height: 40vh">
+                                        {{#if user}}
+                                        {{#if user.interests.length}}
+                                        <div><h5 class="text-center text-success">Interests</h5></div>
+                                        <div id="allinterests" style="height: 65%; max-height: 65%; overflow-y:auto">
+                                            {{#each user.interests}}
+                                            <a href="/interests?q={{this}}"
+                                                class="btn btn-sm btn-outline-info m-1">{{this}}</a>
+                                            {{/each}}
+                                        </div>
+                                        <div id="interestcol">
+
+                                        </div>
+                                        {{!-- Ad Box! --}}
+                                        <div>
+                                            <button
+                                                class="btn btn-sm btn-outline-success rounded-circle float-right m-2"
+                                                type="button" id="new"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        {{else}}
+                                        <div class="p-5">
+                                            <h5 class="font-weight-lighter text-center">Add your interests here.</h5>
+                                            <button
+                                                class="btn btn-sm btn-outline-success rounded float-center m-2"
+                                                type="button" id="new"><i class="fas fa-plus"></i> Add Interest</button>
+                                        </div>
+                                        <div id="interestcol">
+
+                                        </div>
+                                        {{/if}}
+                                        {{else}}
+                                        <div class="p-5">
+                                            <h5 class="font-weight-lighter text-center">Log in to add interests and use other features.</h5>
+                                            <a href="/login"
+                                                class="btn btn-sm btn-outline-success rounded float-center m-2"><i class="fas fa-sign-in-alt"></i> Log In</a>
+                                        </div>
+                                        <div id="interestcol">
+
+                                        {{/if}}
+
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +339,4 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 <script src="js/homepage-bookmark.js"></script>
-
-
-
 </html>

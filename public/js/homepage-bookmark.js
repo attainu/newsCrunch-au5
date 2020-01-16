@@ -230,3 +230,14 @@ $(document).ready(function () {
 
     })
 });
+
+
+//..........................................ADD INTEREST.....................................//
+$('#new').click(function () {
+    $('#interestcol').append('<form class="m-2" action="/addinterest" method="POST"><input class="form-control-sm border-success interest d-inline-block w-50" type="text" placeholder="Enter a interest" name="interest"><button type="submit" class=" ml-2 text-success btn add d-inline-block"><i class="fas fa-check"></i></button><button type="button" class="ml-2 text-danger btn d-inline-block dump"><i class="fas fa-times"></i></button></form>')
+    $('#new').hide();
+    $('.dump').click(function () {
+        $('#interestcol').empty()
+        $('#new').show();
+    })
+})
