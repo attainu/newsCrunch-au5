@@ -141,8 +141,7 @@
                 <div class="col-md-10 border-left">
                     <div class="row">
                         <div class="col-md-8 bg-light p-0 news-col">
-                            <h4 class="p-3 bg-white border-bottom border-muted text-success text-center "
-                                id="title">
+                            <h4 class="p-3 bg-white border-bottom border-muted text-success text-center " id="title">
                                 {{#if topHeadlines}}
                                 Top Headlines
                                 {{/if}}
@@ -202,9 +201,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mt-0 bookmark">
+                                    <div class="row mt-0">
                                         <div class="col-sm-1 offset-sm-11 offset-10">
-                                            <i id="bookmark-{{@index}}" class="far fa-bookmark mb-3"></i>
+                                            <i id="bookmark-{{@index}}" class="bookmark far fa-bookmark mb-3"></i>
                                         </div>
                                     </div>
 
@@ -241,7 +240,7 @@
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?page=4">4</a></li>
                                                 <li class="page-item "><a class="page-link bg-success text-white"
-                                                        href="?page=5">5</a></li>        
+                                                        href="?page=5">5</a></li>
                                                 {{/if}}
                                                 {{/if}}
                                             </ul>
@@ -262,9 +261,12 @@
                                         style="min-height: 40vh; max-height: 40vh">
                                         {{#if user}}
                                         {{#if user.interests.length}}
-                                        <div><h5 class="text-center text-success">Interests</h5></div>
+                                        <div>
+                                            <h5 class="text-center text-success">Interests</h5>
+                                        </div>
                                         <div id="allinterests" style="height: 65%; max-height: 65%; overflow-y:auto">
                                             {{#each user.interests}}
+                                            <input type="hidden" value="{{this}}" class="interests">
                                             <a href="/interests?q={{this}}"
                                                 class="btn btn-sm btn-outline-info m-1">{{this}}</a>
                                             {{/each}}
@@ -277,12 +279,13 @@
                                             <button
                                                 class="btn btn-sm btn-outline-success rounded-circle float-right m-2"
                                                 type="button" id="new"><i class="fas fa-plus"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger rounded-circle float-right m-2"
+                                                type="button" id="del"><i class="far fa-trash-alt"></i></button>
                                         </div>
                                         {{else}}
                                         <div class="p-5">
                                             <h5 class="font-weight-lighter text-center">Add your interests here.</h5>
-                                            <button
-                                                class="btn btn-sm btn-outline-success rounded float-center m-2"
+                                            <button class="btn btn-sm btn-outline-success rounded float-center m-2"
                                                 type="button" id="new"><i class="fas fa-plus"></i> Add Interest</button>
                                         </div>
                                         <div id="interestcol">
@@ -291,44 +294,70 @@
                                         {{/if}}
                                         {{else}}
                                         <div class="p-5">
-                                            <h5 class="font-weight-lighter text-center">Log in to add interests and use other features.</h5>
+                                            <h5 class="font-weight-lighter text-center">Log in to add interests and use
+                                                other features.</h5>
                                             <a href="/login"
-                                                class="btn btn-sm btn-outline-success rounded float-center m-2"><i class="fas fa-sign-in-alt"></i> Log In</a>
+                                                class="btn btn-sm btn-outline-success rounded float-center m-2"><i
+                                                    class="fas fa-sign-in-alt"></i> Log In</a>
                                         </div>
                                         <div id="interestcol">
 
-                                        {{/if}}
+                                            {{/if}}
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
+                    </div>
 
-
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+        <!-- MODAL -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
                     </div>
                 </div>
+            </div>
+        </div>
 
+
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+            aria-hidden="true" id='interestmodal'>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h5 class="modal-title text-white">Delete interests</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-3">
+                        <form method="POST" action="/deleteinterests">
+                            {{#each user.interests}}
+                            <div class="form-check">
+                                <input class="form-check-input interestcheck" type="checkbox" name="interests" value="{{this}}">
+                                <label class="form-check-label">
+                                    {{this}}
+                                </label>
+                            </div>
+                            {{/each}}
+                            <button type="submit" class="btn btn-danger btn-sm mt-3" id="deletebutton" disabled>Delete</button>
+                        </form>
+
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-    <!-- MODAL -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-dark">
-                    {{!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
-    <input type="hidden" value="{{user.city}}" id="city">
+        <input type="hidden" value="{{user.city}}" id="city">
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -339,4 +368,5 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 <script src="js/homepage-bookmark.js"></script>
+
 </html>

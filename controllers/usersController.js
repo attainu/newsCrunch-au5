@@ -31,7 +31,7 @@ module.exports.postSignup = function (req, res) {
                 model
                     .save()
                     .then((user) => {
-                        res.redirect("/signup?signupSuccess=true")
+                        res.redirect("/login?signedUp=true")
                     })
                     .catch(err => {
                         console.log('error in save post signup.', err)

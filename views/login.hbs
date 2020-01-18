@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log in to your account</title>
-    <link rel="shortcut icon" href="pictures/logo_ico.ico"/>
+    <link rel="shortcut icon" href="pictures/logo_ico.ico" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -37,22 +37,38 @@
 
                         </form>
                         <p class="mt-2">New user? <a href="/signup" class="text-success">Register</a>.</p>
-                        {{#if loginError}}
-                        <div class="alert alert-danger mt-4">
-                            Email id or password Incorrect.
-                        </div>
-                        {{/if}}
                     </div>
-
                 </div>
-
             </div>
         </div>
         <div class="col-md-8 right">
+            {{#if loginError}}
+            <div class="alert alert-warning mt-3 ml-2 w-50 alert-dismissible fade show" role="alert">
+                <strong>Oops!</strong> Incorrect email or password.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            {{#if signedUp}}
+            <div class="alert alert-success mt-3 ml-2 w-50 alert-dismissible fade show" role="alert">
+                <strong>Registered!</strong> Log in now.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
         </div>
     </div>
 </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 <script src="//geodata.solutions/includes/countrystatecity.js"></script>
 
 </html>

@@ -64,6 +64,7 @@ router.delete('/removeBookmark', bookmarkController.removeBookmark)
 //<-------------interests route----------------->
 router.post('/addinterest', interestController.postInterest)
 router.get('/interests', interestController.getInterest)
+router.post('/deleteinterests', interestController.postDeleteInterest)
 
 //<-------------logout route----------------->
 router.get('/logout', userController.getlogout)

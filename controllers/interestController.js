@@ -6,15 +6,16 @@ const UserModel = require('../models/user.model')
 
 //.........................................Add interest...........................................//
 module.exports.postInterest = function (req, res) {
-    interestsArr = []
-    if (req.body.interest.length != 0) {
+    var interestsArr = []
+    var interest = req.body.interest.charAt(0).toUpperCase() + req.body.interest.slice(1)
+    if (interest.length != 0) {
         UserModel.findById({ _id: req.session.user.id }).exec().then(function (user) {
-            if (user.interests) {
+            if (user.interests && user.interests.includes(interest)==false) {
                 interestsArr = user.interests
-                interestsArr.push(req.body.interest)
+                interestsArr.push(interest)
             }
             else {
-                interestsArr.push(req.body.interest)
+                interestsArr.push(interest)
             }
             UserModel.updateOne({ _id: user.id }, { $set: { 'interests': interestsArr } }, function (err, result) {
                 if (err) {
@@ -66,4 +67,37 @@ module.exports.getInterest = function (req, res){
         }
         
     })
+}
+
+
+//................................delete interest.................................//
+
+module.exports.postDeleteInterest = function (req, res){
+    console.log(req.body.interests)
+    var deleteitems = req.body.interests
+    UserModel.findOne({_id:req.session.user.id}, function(err, result){
+        if(err){
+            console.log(err)
+        }
+        else{
+            var newitems = result.interests.filter(function(e){
+                 if(deleteitems.includes(e)==false)
+                  return e
+                })
+            console.log(newitems)
+
+            UserModel.updateOne({_id: result.id}, { $set: {'interests': newitems}}, function(err, result){
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    res.redirect('back')
+                }
+            })
+            
+
+        }
+
+    })
+    
 }

@@ -52,7 +52,7 @@ $(document).ready(function () {
 
 
     $.getJSON(
-        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
         city +
         "&appid=fefcb07c01516af278fab70347d82a40",
         function (data) {
@@ -117,43 +117,12 @@ $(document).ready(function () {
     });
 
 
-
-    // $('#search').on('keyup', function () {
-    //     var search = $('#search').val()
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "/search",
-    //         data: { search: search },
-    //         success: function (response) {
-    //             $('.news').empty();
-    //             response.articles.forEach(function (a) {
-    //                 $('.news').append('<div class="card mb-3 shadow" style="max-width: 100%;">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.source.name + '" id="source-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.author + '" id="author-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.title + '" id="title-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.description + '" id="description-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.url + '" id="url-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.urlToImage + '" id="urlToImage-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.publishedAt + '" id="publishedAt-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<input type="hidden" value="' + a.content + '" id="content-' + response.articles.indexOf(a) + '">')
-    //                 $('.card').last().append('<div class="row no-gutters">')
-    //                 $('.no-gutters').last().append('<div class="col-md-3 image text-center">')
-    //                 $('.image').last().append('<img src="' + a.urlToImage + '" class="card-img mt-3 ml-3" alt="..." style="width: 150px; max-width: 150px; max-height:100px;">')
-    //                 $('.no-gutters').last().append('<div class="col-md-8">')
-    //                 $('.col-md-8').last().append('<div class="card-body ml-3">')
-    //                 $('.card-body').last().append('<h6 class="card-title">' + a.title + '</h6>')
-    //                 $('.card-body').last().append('<p class="card-text">' + a.source.name + '</p>')
-    //                 $('.card-body').last().append('<p class="card-text"><small class="text-muted">' + a.publishedAt + '</small></p>')
-    //                 showmodal();
-
-    //             })
-    //         }
-    //     });
-    // })
-
     //<----------------Add bookmark-------------->
 
     $('.bookmark').click(function () {
+        $(this).removeClass('far');
+        $(this).addClass('fas');
+        $(this).css('color', 'green');
         var id = $(".userId").val()
         console.log(id)
         if (id) {
@@ -202,42 +171,99 @@ $(document).ready(function () {
     //<----------------Remove bookmark-------------->
 
     $('.removeBookmark').click(function () {
-        var id = $(".userId").val()
-        console.log(id)
-        if (id) {
+        if (confirm('Delete this bookmark?')) {
+            var id = $(".userId").val()
+            console.log(id)
+            if (id) {
 
-            var index = $('.removeBookmark').index(this)
-            var title = $('#title-' + index).val()
-            var bookmark = {
-                index: index,
-                title: title,
-                id: id
-            }
-            $.ajax({
-                method: "DELETE",
-                datatype: 'JSON',
-                url: "/removeBookmark",
-                data: bookmark,
-                success: function (response) {
-                    console.log(response)
-                    window.location.href = "/bookmark"
-
+                var index = $('.removeBookmark').index(this)
+                var title = $('#title-' + index).val()
+                var bookmark = {
+                    index: index,
+                    title: title,
+                    id: id
                 }
-            })
-        } else {
-            window.location.href = "/login"
+                $.ajax({
+                    method: "DELETE",
+                    datatype: 'JSON',
+                    url: "/removeBookmark",
+                    data: bookmark,
+                    success: function (response) {
+                        console.log(response)
+                        window.location.href = "/bookmark"
+
+                    }
+                })
+            } else {
+                window.location.href = "/login"
+            }
         }
 
+
     })
+
+    //..........................................ADD INTEREST.....................................//
+    $('#new').click(function () {
+        $('#interestcol').append('<form class="m-2" action="/addinterest" method="POST"><input class="form-control-sm border-success interest d-inline-block w-50" type="text" placeholder="Enter a interest" name="interest"><button type="submit" class=" ml-2 text-success btn add d-inline-block"><i class="fas fa-check"></i></button><button type="button" class="ml-2 text-danger btn d-inline-block dump"><i class="fas fa-times"></i></button></form>')
+        $('#new').hide();
+        $('#del').hide();
+        $('.dump').click(function () {
+            $('#interestcol').empty()
+            $('#new').show();
+            $('#del').show();
+        })
+    })
+
+
+    //.....................................REMOVE INTEREST......................................//
+
+    $('#del').click(function () {
+        $('#interestmodal').modal('show')
+    })
+
+
+
+    $('.interestcheck').click(function () {
+        
+        var deleteitems = []
+        var checkboxes = document.getElementsByClassName('interestcheck')
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                deleteitems.push(checkboxes[i])
+            }
+        }
+        console.log(deleteitems)
+        if (deleteitems.length >= 1) {
+            $('#deletebutton').removeAttr('disabled');
+        }
+        else {
+            $('#deletebutton').attr('disabled', true);
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
-//..........................................ADD INTEREST.....................................//
-$('#new').click(function () {
-    $('#interestcol').append('<form class="m-2" action="/addinterest" method="POST"><input class="form-control-sm border-success interest d-inline-block w-50" type="text" placeholder="Enter a interest" name="interest"><button type="submit" class=" ml-2 text-success btn add d-inline-block"><i class="fas fa-check"></i></button><button type="button" class="ml-2 text-danger btn d-inline-block dump"><i class="fas fa-times"></i></button></form>')
-    $('#new').hide();
-    $('.dump').click(function () {
-        $('#interestcol').empty()
-        $('#new').show();
-    })
-})

@@ -30,7 +30,7 @@
                         <form action="/signup" method="POST">
                             <h5 class="font-weight-light">Register</h5>
                             <input type="text" class="form-control bg-dark mt-3 text-light" name="name"
-                                placeholder="Enter your name" id="name" minlength="3" required>
+                                placeholder="Enter your full name" id="name" minlength="3" pattern="[a-zA-Z0-9\s]+" required>
                             <input type="email" class="form-control bg-dark mt-3 text-light" name="email"
                                 placeholder="Enter your email" id="email" required>
                             <select name="country" class="countries select form-control bg-dark mt-3 text-muted"
@@ -46,25 +46,14 @@
                                 <option value="">Select City</option>
                             </select>
                             <input type="password" class="form-control bg-dark mt-3 text-light" name="password"
-                                placeholder="Enter a password" id="password" required>
+                                placeholder="Enter a password" id="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
                             <input type="password" class="form-control bg-dark mt-3 text-light" name="cfpassword"
-                                placeholder="Confirm password" id="cfpassword" required>
+                                placeholder="Confirm password" id="cfpassword" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
                             <button class="btn btn-sm btn-success mt-3" id="button" type="submit"
                                 disabled>Register</button>
 
                         </form>
                         <p class="mt-2">Already a member? <a href="/login" class="text-success">Login</a>.</p>
-                        {{#if signupSuccess}}
-                        <div class="alert alert-success mt-4">
-                            Congratulation!! You have signup Successfully.
-                        </div>
-                        {{/if}}
-
-                        {{#if userExist}}
-                        <div class="alert alert-danger mt-4">
-                            This email id is already registered in our database.
-                        </div>
-                        {{/if}}
                     </div>
 
 
@@ -73,10 +62,25 @@
             </div>
         </div>
         <div class="col-md-8 right">
+            {{#if userExist}}
+             <div class="alert alert-danger mt-3 ml-2 w-50 alert-dismissible fade show" role="alert">
+                <strong>Email already exists</strong>
+                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            {{/if}}
         </div>
     </div>
 </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 <script src="//geodata.solutions/includes/countrystatecity.js"></script>
 <script src="js/homepage.js"></script>
 <script src="js/signup.js"></script>
