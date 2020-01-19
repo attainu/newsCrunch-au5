@@ -1,4 +1,5 @@
-var city = $('#city').val();
+$(document).ready(function () {
+    var city = $('#city').val();
 
     $.getJSON(
         "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -38,4 +39,26 @@ var city = $('#city').val();
 
         }
         
-      })
+    })
+
+
+    $('#newpassword').on('keyup', function(){
+        var npass =  $('#newpassword').val()
+        if(npass.length>0){
+            $('#updatebutton').attr('disabled', true)
+        }
+        else{
+            $('#updatebutton').removeAttr('disabled')
+        }
+     })
+     $('#cfpassword').on('keyup', function(){
+         var npass = $('#newpassword').val()
+         var cfpass = $('#cfpassword').val()
+         if(cfpass == npass){
+             $('#updatebutton').removeAttr('disabled')
+         }
+         else{
+             $('#updatebutton').attr('disabled', true)
+         }
+     })
+});
