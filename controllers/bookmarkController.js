@@ -22,7 +22,6 @@ module.exports.getBookmark = function (req, res) {
 
 module.exports.postBookmark = function (req, res) {
     var id = mongoose.Types.ObjectId(req.body.id)
-    console.log(req.body.id)
     var bookmark = {
         index: req.body.index,
         name: req.body.name,
@@ -41,7 +40,6 @@ module.exports.postBookmark = function (req, res) {
         .then(function (user) {
 
             if (user.bookmark) {
-                console.log("in user.bookmark")
                 bookmarkArr = user.bookmark
                 bookmarkArr.push(bookmark)
             }
@@ -51,7 +49,6 @@ module.exports.postBookmark = function (req, res) {
             //  console.log('userType', bookmarkArr)
             UserModel.updateOne({ _id: id }, { $set: { "bookmark": bookmarkArr } }).exec()
                 .then(function (user) {
-                    console.log(user)
                 })
                 .catch(function (err) {
 
@@ -73,16 +70,13 @@ module.exports.removeBookmark = function (req, res) {
     }
     UserModel.findById({ _id: id }).exec()
         .then(function (user) {
-            console.log(user)
             if (user.bookmark) {
-                console.log("in user.bookmark")
                 let bookmarkArr = user.bookmark
                 updatedBookmarks = bookmarkArr.filter(bookmark => !(bookmark.title == removeBookmark.title))
 
 
                 UserModel.updateOne({ _id: id }, { $set: { "bookmark": updatedBookmarks } }).exec()
                     .then(function (user) {
-                        console.log(user)
                         res.status(200).send('OK')
                     })
                     .catch(function (err) {

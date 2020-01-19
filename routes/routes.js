@@ -38,7 +38,6 @@ router.get('/technology', categoryController.getTechnology)
 
 //<--------------------------------------------------------------------Session MW after login-------------------------------------------->
 router.use(function (req, res, next) {
-    console.log('session middleware')
     if (req.session.user) {
         next();
     }

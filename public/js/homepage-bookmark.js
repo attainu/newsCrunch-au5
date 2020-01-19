@@ -95,22 +95,18 @@ $(document).ready(function () {
         $(this).addClass('fas');
         $(this).css('color', 'green');
         var id = $(".userId").val()
-        console.log(id)
+        
         if (id) {
 
             var index = $('.bookmark').index(this)
             var name = $('#source-' + index).val()
-            console.log(name);
-            var img = $('#urlToImage-' + index).val();
-            console.log(img);
+            var img = $('#urlToImage-' + index).val(); 
             var author = $('#author-' + index).val();
-            console.log(author);
             var title = $('#title-' + index).val()
             var description = $('#description-' + index).val()
             var url = $('#url-' + index).val()
             var publishedAt = $('#publishedAt-' + index).val()
             var content = $('#content-' + index).val()
-            console.log(content)
             content = content.substr(0, 100)
             var bookmark = {
                 index: index,
@@ -144,7 +140,6 @@ $(document).ready(function () {
     $('.removeBookmark').click(function () {
         if (confirm('Delete this bookmark?')) {
             var id = $(".userId").val()
-            console.log(id)
             if (id) {
 
                 var index = $('.removeBookmark').index(this)
@@ -203,7 +198,6 @@ $(document).ready(function () {
                 deleteitems.push(checkboxes[i])
             }
         }
-        console.log(deleteitems)
         if (deleteitems.length >= 1) {
             $('#deletebutton').removeAttr('disabled');
         }

@@ -14,7 +14,6 @@ module.exports.getSignup = function (req, res) {
 //<----------------------------------Signup post route---------------------------->
 
 module.exports.postSignup = function (req, res) {
-    console.log('city', req.body.city)
     UserModel.findOne({ email: req.body.email }).exec()
         .then(function (userexist) {
             if (userexist) {
@@ -63,7 +62,6 @@ module.exports.postLogin = function (req, res) {
                 req.session.user = {
                     id: user._id
                 }
-                console.log("session id", req.session.user.id)
                 res.redirect("/")
             } else {
                 res.redirect("/login?loginError=true")
@@ -79,7 +77,6 @@ module.exports.getProfile = function (req, res) {
         if (error)
             console.log(error)
         else {
-            console.log(result)
             res.render('profile', {
                 user: result,
                 userCity: result.city
@@ -99,11 +96,9 @@ module.exports.postUserUpdate = function (req, res) {
         else {
             var form = new multiparty.Form({})
             form.parse(req, function (err, fields, files) {
-                console.log(fields)
                 var data = {}
                 if (files.photo[0].size != 0) {
                     cloudinary.uploader.upload(files.photo[0].path, function (error, result) {
-                        console.log('THIS IS RESULT URL', result.url)
                         data.photo = result.url
                         if (fields.name[0].length != 0) {
                             data.name = fields.name[0]

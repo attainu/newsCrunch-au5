@@ -73,7 +73,6 @@ module.exports.getInterest = function (req, res){
 //................................delete interest.................................//
 
 module.exports.postDeleteInterest = function (req, res){
-    console.log(req.body.interests)
     var deleteitems = req.body.interests
     UserModel.findOne({_id:req.session.user.id}, function(err, result){
         if(err){
@@ -84,7 +83,6 @@ module.exports.postDeleteInterest = function (req, res){
                  if(deleteitems.includes(e)==false)
                   return e
                 })
-            console.log(newitems)
 
             UserModel.updateOne({_id: result.id}, { $set: {'interests': newitems}}, function(err, result){
                 if(err){

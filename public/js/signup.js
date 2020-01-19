@@ -49,7 +49,6 @@ $(document).ready(function () {
     })
 
     $('#stateId').click(function () {
-        console.log($('#stateId').val())
         if ($('#stateId').val() != "" ) {
             $('#cityId').show();
         }
