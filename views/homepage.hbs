@@ -23,9 +23,14 @@
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
             <i class="fas fa-bars text-light" id="newscrunch"></i>&nbsp;&nbsp;<a class="navbar-brand" href="/"><span
                     class="text-success">news</span><span class="text-light">Crunch</span></a>
-
-            <input class="input-group input-group-sm form-control col-6 offset-md-1 offset-sm-1" type="text"
-                placeholder="Search" id="search">
+            <div class="has-search col-6 offset-md-1 offset-sm-1">
+                <span class="fa fa-search form-control-feedback"></span>
+                <form action="/search" method="POST">
+                <input type="text" class="form-control submit_on_enter" placeholder="Search" id="search" name="search">
+                </form>
+            </div>
+            {{!-- <input class="input-group input-group-sm form-control col-6 offset-md-1 offset-sm-1" type="text"
+                placeholder="Search" id="search"> --}}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,10 +40,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://twitter.com/newsCrunch_" target="_blank"><i class="fab fa-twitter text-light"></i></a>
+                        <a class="nav-link" href="https://twitter.com/newsCrunch_" target="_blank"><i
+                                class="fab fa-twitter text-light"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.instagram.com/newscrunch_" target="_blank"><i class="fab fa-instagram text-light"></i></a>
+                        <a class="nav-link" href="https://www.instagram.com/newscrunch_" target="_blank"><i
+                                class="fab fa-instagram text-light"></i></a>
                     </li>
                     {{#if user.id}}
                     <li class="nav-item dropdown">
@@ -172,6 +179,9 @@
                                 {{#if query}}
                                 {{query}}
                                 {{/if}}
+                                {{#if search}}
+                                Search
+                                {{/if}}
                             </h4>
                             <div class="p-3 news">
                                 {{#each news}}
@@ -230,6 +240,8 @@
                                                         href="?q={{query}}&page=4">4</a></li>
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?q={{query}}&page=5">5</a></li>
+                                                {{else if search}}
+                                                        
                                                 {{else}}
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?page=1">1</a></li>
@@ -343,13 +355,15 @@
                         <form method="POST" action="/deleteinterests">
                             {{#each user.interests}}
                             <div class="form-check">
-                                <input class="form-check-input interestcheck" type="checkbox" name="interests" value="{{this}}">
+                                <input class="form-check-input interestcheck" type="checkbox" name="interests"
+                                    value="{{this}}">
                                 <label class="form-check-label">
                                     {{this}}
                                 </label>
                             </div>
                             {{/each}}
-                            <button type="submit" class="btn btn-danger btn-sm mt-3" id="deletebutton" disabled>Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm mt-3" id="deletebutton"
+                                disabled>Delete</button>
                         </form>
 
                     </div>

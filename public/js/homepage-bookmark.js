@@ -79,42 +79,13 @@ $(document).ready(function () {
 
     //...................................................SEARCH...................................................//
 
-
-    $('#search').on('keypress', function (e) {
-        if (e.which == 13) {
-            var search = $('#search').val()
-            $.ajax({
-                type: "POST",
-                url: "/search",
-                data: { search: search },
-                success: function (response) {
-                    $('.news').empty();
-                    response.articles.forEach(function (a) {
-                        $('#title').html('Search')
-                        $('.news').append('<div class="card mb-3 shadow" style="max-width: 100%;">')
-                        $('.card').last().append('<input type="hidden" value="' + a.source.name + '" id="source-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.author + '" id="author-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.title + '" id="title-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.description + '" id="description-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.url + '" id="url-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.urlToImage + '" id="urlToImage-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.publishedAt + '" id="publishedAt-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<input type="hidden" value="' + a.content + '" id="content-' + response.articles.indexOf(a) + '">')
-                        $('.card').last().append('<div class="row no-gutters">')
-                        $('.no-gutters').last().append('<div class="col-md-3 image text-center">')
-                        $('.image').last().append('<img src="' + a.urlToImage + '" class="card-img mt-3 ml-3" alt="..." style="width: 150px; max-width: 150px; max-height:100px;">')
-                        $('.no-gutters').last().append('<div class="col-md-8">')
-                        $('.col-md-8').last().append('<div class="card-body ml-3">')
-                        $('.card-body').last().append('<h6 class="card-title">' + a.title + '</h6>')
-                        $('.card-body').last().append('<p class="card-text">' + a.source.name + '</p>')
-                        $('.card-body').last().append('<p class="card-text"><small class="text-muted">' + a.publishedAt + '</small></p>')
-                        showmodal();
-
-                    })
-                }
-            });
-        }
+    $('.submit_on_enter').keydown(function() { 
+        if (event.keyCode == 13) {
+            this.form.submit();
+            return false;
+          }        
     });
+    
 
 
     //<----------------Add bookmark-------------->

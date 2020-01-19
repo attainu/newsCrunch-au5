@@ -434,17 +434,35 @@ module.exports.getTechnology = function (req, res) {
 //<----------------------------------Search route--------------------------->
 
 module.exports.postSearch = function (req, res) {
-    if (req.query.page) {
-        var page = req.query.page
+    if(req.session.user){
+        UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
+            var user = result
+            newsapi.v2.everything({
+                pageSize: 100,
+                language: 'en',
+                qInTitle: req.body.search
+            }).then(function (response) {
+                var search = true;
+                res.render('homepage', {
+                    user: user,
+                    search: search,
+                    news: response.articles
+                })
+            })
+        })
     }
-    else {
-        var page = 1
+    else{
+        newsapi.v2.everything({
+            pageSize: 100,
+            language: 'en',
+            qInTitle: req.body.search
+        }).then(function (response) {
+            var search = true;
+            res.render('homepage', {
+                search: search,
+                news: response.articles
+            })
+        })
     }
-    newsapi.v2.everything({
-        page: page,
-        language: 'en',
-        qInTitle: req.body.search
-    }).then(function (response) {
-        res.send(response)
-    })
+    
 }
