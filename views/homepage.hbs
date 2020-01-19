@@ -69,7 +69,6 @@
                 </ul>
             </div>
         </nav>
-        <input type="hidden" value="{{user.id}}" class="userId">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 p-0">
@@ -241,7 +240,7 @@
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?q={{query}}&page=5">5</a></li>
                                                 {{else if search}}
-                                                        
+
                                                 {{else}}
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?page=1">1</a></li>
@@ -374,6 +373,7 @@
         {{#if user.city.length}}
         <input type="hidden" value="{{user.city}}" id="city">
         {{/if}}
+        <input type="hidden" value="{{user.id}}" class="userId" id="userId">
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

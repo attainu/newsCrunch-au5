@@ -79,28 +79,27 @@ $(document).ready(function () {
 
     //...................................................SEARCH...................................................//
 
-    $('.submit_on_enter').keydown(function() { 
+    $('.submit_on_enter').keydown(function () {
         if (event.keyCode == 13) {
             this.form.submit();
             return false;
-          }        
+        }
     });
-    
+
 
 
     //<----------------Add bookmark-------------->
 
     $('.bookmark').click(function () {
-        $(this).removeClass('far');
-        $(this).addClass('fas');
-        $(this).css('color', 'green');
         var id = $(".userId").val()
-        
-        if (id) {
 
+        if (id) {
+            $(this).removeClass('far');
+            $(this).addClass('fas');
+            $(this).css('color', 'green');
             var index = $('.bookmark').index(this)
             var name = $('#source-' + index).val()
-            var img = $('#urlToImage-' + index).val(); 
+            var img = $('#urlToImage-' + index).val();
             var author = $('#author-' + index).val();
             var title = $('#title-' + index).val()
             var description = $('#description-' + index).val()
@@ -190,7 +189,7 @@ $(document).ready(function () {
 
 
     $('.interestcheck').click(function () {
-        
+
         var deleteitems = []
         var checkboxes = document.getElementsByClassName('interestcheck')
         for (var i = 0; i < checkboxes.length; i++) {
