@@ -164,13 +164,15 @@
                         <input type="password" class="form-control mt-1" name="password" placeholder="Previous Password"
                             id="password">
                         <input type="password" class="form-control mt-3" name="newpassword" placeholder="New Password"
-                            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+                            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" id="newpassword">
+                        <input type="password" class="form-control mt-3" name="cfpassword" placeholder="Confirm Password"
+                            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" id="cfpassword">    
                         <label for="email" class="mt-3">Email</label>
                         <input type="text" class="form-control mt-1" name="email" placeholder="Email"
                             value="{{user.email}}" disabled>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-outline-info">Update</button>
+                        <button type="submit" class="btn btn-sm btn-outline-info" id="updatebutton">Update</button>
                     </div>
                 </form>
 
@@ -192,6 +194,27 @@
     crossorigin="anonymous"></script>
 <script src="//geodata.solutions/includes/countrystatecity.js"></script>
 <script src="js/profile.js"></script>
+<script>
+    $('#newpassword').on('keyup', function(){
+       var npass =  $('#newpassword').val()
+       if(npass.length>0){
+           $('#updatebutton').attr('disabled', true)
+       }
+       else{
+           $('#updatebutton').removeAttr('disabled')
+       }
+    })
+    $('#cfpassword').on('keyup', function(){
+        var npass = $('#newpassword').val()
+        var cfpass = $('#cfpassword').val()
+        if(cfpass == npass){
+            $('#updatebutton').removeAttr('disabled')
+        }
+        else{
+            $('#updatebutton').attr('disabled', true)
+        }
+    })
+</script>
 
 
 </html>
