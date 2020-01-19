@@ -8,7 +8,9 @@ const userSchema = mongoose.Schema({
     password: { type: String },
     bookmark: { type: [] },
     photo: {type: String},
-    interests: {type: []}
+    interests: {type: []},
+    phone : {type: Number},
+    age : {type: Number}
 })
 
 

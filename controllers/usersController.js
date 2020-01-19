@@ -92,13 +92,14 @@ module.exports.getProfile = function (req, res) {
 
 //<----------------------------------User update route---------------------------->
 module.exports.postUserUpdate = function (req, res) {
-    UserModel.findOne({ _id: req.session.user.id }, function (error, result) {
+    UserModel.findOne({ _id: req.session.user.id }, function (error, user) {
         if (error) {
             console.log(error)
         }
         else {
             var form = new multiparty.Form({})
             form.parse(req, function (err, fields, files) {
+                console.log(fields)
                 var data = {}
                 if (files.photo[0].size != 0) {
                     cloudinary.uploader.upload(files.photo[0].path, function (error, result) {
@@ -118,6 +119,25 @@ module.exports.postUserUpdate = function (req, res) {
 
                         if (fields.city[0].length != 0) {
                             data.city = fields.city[0]
+                        }
+                        if (fields.password[0].length != 0){
+                            if(fields.password[0] == user.password){
+                                if(fields.newpassword[0] != 0){
+                                    data.password = fields.newpassword[0]
+                                }
+                                else{
+                                    data.password = user.password
+                                }
+                            }
+                            else{
+                                data.password = user.password
+                            }
+                        }
+                        if (fields.phone[0].length != 0){
+                            data.phone = fields.phone[0]
+                        }
+                        if (fields.age[0].length != 0){
+                            data.age = fields.age[0]
                         }
                         UserModel.updateOne({ _id: req.session.user.id }, { $set: data }, function (err, result) {
                             if (err) {
@@ -145,12 +165,31 @@ module.exports.postUserUpdate = function (req, res) {
                     if (fields.city[0].length != 0) {
                         data.city = fields.city[0]
                     }
+                    if (fields.password[0].length != 0){
+                        if(fields.password[0] == user.password){
+                            if(fields.newpassword[0] != 0){
+                                data.password = fields.newpassword[0]
+                            }
+                            else{
+                                data.password = user.password
+                            }
+                        }
+                        else{
+                            data.password = user.password
+                        }
+                    }
+                    if (fields.phone[0].length != 0){
+                        data.phone = fields.phone[0]
+                    }
+                    if (fields.age[0].length != 0){
+                        data.age = fields.age[0]
+                    }
                     UserModel.updateOne({ _id: req.session.user.id }, { $set: data }, function (err, result) {
                         if (err) {
                             console.log(err);
                         }
                         else {
-                            res.redirect('/profile')
+                            res.redirect('/profile?updated=true')
                         }
                     })
                 }

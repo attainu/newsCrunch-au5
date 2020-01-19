@@ -1,7 +1,7 @@
 var city = $('#city').val();
 
     $.getJSON(
-        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        "https://api.openweathermap.org/data/2.5/weather?q=" +
         city +
         "&appid=fefcb07c01516af278fab70347d82a40",
         function (data) {
@@ -23,3 +23,19 @@ var city = $('#city').val();
         }
 
     );
+
+
+    $('#password').on('keyup', function () {
+        var pass = $('#password').val()
+        var old = $('#oldpassword').val()
+        if(pass != old){
+            $('.float-right').remove()
+            $('#password').addClass('border-danger')
+        }
+        else{
+            $('.float-right').remove()
+            $('#password').removeClass('border-danger')
+
+        }
+        
+      })
