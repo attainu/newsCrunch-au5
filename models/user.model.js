@@ -10,7 +10,8 @@ const userSchema = mongoose.Schema({
     photo: {type: String},
     interests: {type: []},
     phone : {type: Number},
-    age : {type: Number}
+    age : {type: Number},
+    history: {type: [] }
 })
 
 

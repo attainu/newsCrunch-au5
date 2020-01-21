@@ -65,6 +65,10 @@ router.post('/addinterest', interestController.postInterest)
 router.get('/interests', interestController.getInterest)
 router.post('/deleteinterests', interestController.postDeleteInterest)
 
+//<-------------History route----------------->
+router.post('/deletehistory', userController.postDeleteHistory)
+router.post('/interestadd', interestController.postInterestFromHistory)
+
 //<-------------logout route----------------->
 router.get('/logout', userController.getlogout)
 

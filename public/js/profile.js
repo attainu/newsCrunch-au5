@@ -61,4 +61,68 @@ $(document).ready(function () {
              $('#updatebutton').attr('disabled', true)
          }
      })
+
+
+
+
+
+
+
+
+     $('#history').click(function () {
+        $('#historymodal').modal('show')
+    })
+    
+    $('#selectall').click(function () {
+        var items = []
+        if ($('#selectall').prop("checked") == true) {
+            var checkbox = document.getElementsByClassName('historycheck')
+            for (var i = 0; i < checkbox.length; i++) {
+                checkbox[i].checked = true;
+            }
+        }
+        else {
+            var checkbox = document.getElementsByClassName('historycheck')
+            for (var i = 0; i < checkbox.length; i++) {
+                checkbox[i].checked = false;
+            }
+        }
+
+
+
+        for (var i = 0; i < checkbox.length; i++) {
+            if (checkbox[i].checked) {
+                items.push(checkbox[i])
+            }
+        }
+        if (items.length >= 1) {
+            $('#historydelete').removeAttr('disabled');
+            $('#interestadd').removeAttr('disabled');
+        }
+        else {
+            $('#historydelete').attr('disabled', true);
+            $('#interestadd').attr('disabled', true);
+
+        }
+    })
+
+    
+    $('.historycheck').click(function () { 
+        var items = [] 
+        var checkboxes = document.getElementsByClassName('historycheck')
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                items.push(checkboxes[i])
+            }
+        }
+        if (items.length >= 1) {
+            $('#historydelete').removeAttr('disabled');
+            $('#interestadd').removeAttr('disabled');
+        }
+        else {
+            $('#historydelete').attr('disabled', true);
+            $('#interestadd').attr('disabled', true);
+        
+        }
+    });
 });

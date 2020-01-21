@@ -26,11 +26,9 @@
             <div class="has-search col-6 offset-md-1 offset-sm-1">
                 <span class="fa fa-search form-control-feedback"></span>
                 <form action="/search" method="GET">
-                <input type="text" class="form-control submit_on_enter" placeholder="Search" id="search" name="q">
+                <input type="text" class="form-control submit_on_enter" placeholder="Search" id="search" name="q" pattern="[a-zA-Z0-9]+">
                 </form>
             </div>
-            {{!-- <input class="input-group input-group-sm form-control col-6 offset-md-1 offset-sm-1" type="text"
-                placeholder="Search" id="search"> --}}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +54,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/profile">Profile</a>
                             <a class="dropdown-item" href="/bookmark">Bookmarks</a>
+                            <a class="dropdown-item" href="#" id="history">History</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
@@ -365,7 +364,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body p-3">
+                    <div class="modal-body p-3 deleteinterests">
                         <form method="POST" action="/deleteinterests">
                             {{#each user.interests}}
                             <div class="form-check">
@@ -379,6 +378,47 @@
                             <button type="submit" class="btn btn-danger btn-sm mt-3" id="deletebutton"
                                 disabled>Delete</button>
                         </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+            aria-hidden="true" id='historymodal'>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h5 class="modal-title text-white">Search History</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-3">
+                        {{#if user.history.length}}
+                        <form method="POST">
+                            <input type="checkbox" class="btn btn-success btn-sm mt-3 mr-2" id="selectall">
+                            <button type="submit" class="btn btn-danger btn-sm mt-3 mr-2" id="historydelete"
+                                formaction="/deletehistory" disabled>Delete</button>
+                            <button type="submit" class="btn btn-warning btn-sm mt-3" id="interestadd"
+                                formaction="/interestadd" disabled>Add as Interest</button>
+                            <div class="mt-3 allhistory">
+                                {{#each user.history}}
+                                <div class="form-check">
+                                    <input class="form-check-input historycheck mr-4" type="checkbox" name="history"
+                                        value="{{this}}">
+                                    <label class="form-check-label">
+                                        <a href="search?q={{this}}" class="text-dark">{{this}}</a>
+                                    </label>
+                                </div>
+                                {{/each}}
+                            </div>
+
+                        </form>
+                        {{else}}
+                        <h3 class="font-weight-lighter text-center m-4">No History.</h3>
+                        {{/if}}
 
                     </div>
 

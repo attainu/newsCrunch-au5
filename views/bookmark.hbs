@@ -32,10 +32,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://twitter.com/newsCrunch_" target="_blank"><i class="fab fa-twitter text-light"></i></a>
+                        <a class="nav-link" href="https://twitter.com/newsCrunch_" target="_blank"><i
+                                class="fab fa-twitter text-light"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.instagram.com/newscrunch_" target="_blank"><i class="fab fa-instagram text-light"></i></a>
+                        <a class="nav-link" href="https://www.instagram.com/newscrunch_" target="_blank"><i
+                                class="fab fa-instagram text-light"></i></a>
                     </li>
                     {{#if userId}}
                     <li class="nav-item dropdown">
@@ -46,6 +48,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/profile">Profile</a>
                             <a class="dropdown-item" href="/bookmark">Bookmarks</a>
+                            <a class="dropdown-item" href="#" id="history">History</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
@@ -153,7 +156,8 @@
                                         <input type="hidden" value="{{this.description}}" id="description-{{@index}}">
                                         <input type="hidden" value="{{this.url}}" id="url-{{@index}}">
                                         <input type="hidden" value="{{this.img}}" id="urlToImage-{{@index}}">
-                                        <input type="hidden" value="{{this.publishedAt}}" id="publishedAt-{{@index}}" class="publishedAt">
+                                        <input type="hidden" value="{{this.publishedAt}}" id="publishedAt-{{@index}}"
+                                            class="publishedAt">
                                         <input type="hidden" value="{{this.content}}" id="content-{{@index}}">
                                         <div class="row no-gutters">
                                             <div class="col-md-3 text-center">
@@ -165,8 +169,7 @@
                                                     <input type="hidden" value="{{this.url}}" id="url-{{@index}}">
                                                     <h6 class="card-title">{{this.title}}</h6>
                                                     <p class="card-text">{{this.name}}</p>
-                                                    <p class="card-text"><small
-                                                            class="text-muted time"></small></p>
+                                                    <p class="card-text"><small class="text-muted time"></small></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -273,18 +276,61 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body p-3">
+                    <div class="modal-body p-3 deleteinterests">
                         <form method="POST" action="/deleteinterests">
                             {{#each user.interests}}
                             <div class="form-check">
-                                <input class="form-check-input interestcheck" type="checkbox" name="interests" value="{{this}}">
+                                <input class="form-check-input interestcheck" type="checkbox" name="interests"
+                                    value="{{this}}">
                                 <label class="form-check-label">
                                     {{this}}
                                 </label>
                             </div>
                             {{/each}}
-                            <button type="submit" class="btn btn-danger btn-sm mt-3" id="deletebutton" disabled>Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm mt-3" id="deletebutton"
+                                disabled>Delete</button>
                         </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+            aria-hidden="true" id='historymodal'>
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark">
+                        <h5 class="modal-title text-white">Search History</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-3">
+                        {{#if user.history.length}}
+                        <form method="POST">
+                            <input type="checkbox" class="btn btn-success btn-sm mt-3 mr-2" id="selectall">
+                            <button type="submit" class="btn btn-danger btn-sm mt-3 mr-2" id="historydelete"
+                                formaction="/deletehistory" disabled>Delete</button>
+                            <button type="submit" class="btn btn-warning btn-sm mt-3" id="interestadd"
+                                formaction="/interestadd" disabled>Add as Interest</button>
+                            <div class="mt-3 allhistory">
+                                {{#each user.history}}
+                                <div class="form-check">
+                                    <input class="form-check-input historycheck mr-4" type="checkbox" name="history"
+                                        value="{{this}}">
+                                    <label class="form-check-label">
+                                        <a href="search?q={{this}}" class="text-dark">{{this}}</a>
+                                    </label>
+                                </div>
+                                {{/each}}
+                            </div>
+
+                        </form>
+                        {{else}}
+                        <h3 class="font-weight-lighter text-center mt-4">No History</h3>
+                        {{/if}}
 
                     </div>
 

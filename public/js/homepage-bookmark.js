@@ -1,32 +1,32 @@
 $(document).ready(function () {
-    
-    const savedBookmarksLength =$('.savedBookmarks').length 
-    let savedBookMarksTitle = $('.savedBookmarks')
-   // console.log("savedbookmarkarrlength",savedBookmarksLength)
-   const  savedBookmarksTitleArr  = [];
-   for(let i=0;i<savedBookmarksLength;i++){
-    savedBookmarksTitleArr.push(savedBookMarksTitle.eq(i).val())
-}
-//console.log('savedBookmarksTitleArr',savedBookmarksTitleArr)
-    const newCardLength =$('.newsCards').length 
-   // console.log("newCardLength",savedBookmarksLength)
-    const  newsCardTitlesArr  = [];
 
-    for(let i=0;i<newCardLength;i++){
-        savedBookmarksTitleArr.map( (title)=>{
-              //  console.log('newsTitle:',$('.newsCards #title-' + i).val())
-               // console.log('title',title)
-                if(title == $('.newsCards #title-' + i).val()){
-                        console.log('match:',title);
-                        $('#bookmark-'+ i).removeClass('far');
-                        $('#bookmark-'+ i).addClass('fas');
-                        $('#bookmark-'+ i).css('color', 'green');
-                }
-        })
-        
+    const savedBookmarksLength = $('.savedBookmarks').length
+    let savedBookMarksTitle = $('.savedBookmarks')
+    // console.log("savedbookmarkarrlength",savedBookmarksLength)
+    const savedBookmarksTitleArr = [];
+    for (let i = 0; i < savedBookmarksLength; i++) {
+        savedBookmarksTitleArr.push(savedBookMarksTitle.eq(i).val())
     }
-    
-    
+    //console.log('savedBookmarksTitleArr',savedBookmarksTitleArr)
+    const newCardLength = $('.newsCards').length
+    // console.log("newCardLength",savedBookmarksLength)
+    const newsCardTitlesArr = [];
+
+    for (let i = 0; i < newCardLength; i++) {
+        savedBookmarksTitleArr.map((title) => {
+            //  console.log('newsTitle:',$('.newsCards #title-' + i).val())
+            // console.log('title',title)
+            if (title == $('.newsCards #title-' + i).val()) {
+                console.log('match:', title);
+                $('#bookmark-' + i).removeClass('far');
+                $('#bookmark-' + i).addClass('fas');
+                $('#bookmark-' + i).css('color', 'green');
+            }
+        })
+
+    }
+
+
 
     //...................................................CATEGORIES...................................................//
 
@@ -106,9 +106,12 @@ $(document).ready(function () {
     //...................................................SEARCH...................................................//
 
     $('.submit_on_enter').keydown(function () {
+        var search = $('.submit_on_enter').val()
         if (event.keyCode == 13) {
-            this.form.submit();
-            return false;
+            if (/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g.test(search)) {
+                this.form.submit();
+                return false;
+            }
         }
     });
 
@@ -148,13 +151,13 @@ $(document).ready(function () {
                 datatype: 'JSON',
                 url: "/bookmark",
                 data: bookmark,
-                statusCode:{
-                   409:function(){
-                       alert("This article is already bookmarked")
+                statusCode: {
+                    409: function () {
+                        alert("This article is already bookmarked")
 
 
-                   }
-               }
+                    }
+                }
             })
         } else {
             window.location.href = "/login"
@@ -239,47 +242,114 @@ $(document).ready(function () {
 
 
     function gettime(date) {
-        var mydate = date.getTime()   
-    
+        var mydate = date.getTime()
+
         var seconds = Math.floor((new Date() - mydate) / 1000);
-    
-      var interval = Math.floor(seconds / 31536000);
-    
-      if (interval > 1) {
-        return interval + " years ago";
-      }
-      interval = Math.floor(seconds / 2592000);
-      if (interval > 1) {
-        return interval + " months ago";
-      }
-      interval = Math.floor(seconds / 86400);
-      if (interval > 1) {
-        return interval + " days ago";
-      }
-      interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-        return interval + " hours ago";
-      }
-      interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-        return interval + " minutes ago";
-      }
-      return Math.floor(seconds) + " seconds ago";
-    
+
+        var interval = Math.floor(seconds / 31536000);
+
+        if (interval > 1) {
+            return interval + " years ago";
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return interval + " months ago";
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval > 1) {
+            return interval + " days ago";
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + " hours ago";
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+            return interval + " minutes ago";
+        }
+        return Math.floor(seconds) + " seconds ago";
+
     }
 
     var publishedAt = $('.publishedAt')
-    
+
     console.log(publishedAt[1].value)
 
 
-    for(i=0;i<publishedAt.length;i++){
+    for (i = 0; i < publishedAt.length; i++) {
         var eachtime = publishedAt[i].value
         console.log(eachtime)
         var time = gettime(new Date(eachtime))
         console.log(time)
         $('.time').eq(i).html(time)
     }
+
+    //...................................HISTORY.............................//
+
+
+    $('#history').click(function () {
+        $('#historymodal').modal('show')
+    })
+
+    $('#selectall').click(function () {
+        var items = []
+        if ($('#selectall').prop("checked") == true) {
+            var checkbox = document.getElementsByClassName('historycheck')
+            for (var i = 0; i < checkbox.length; i++) {
+                checkbox[i].checked = true;
+            }
+        }
+        else {
+            var checkbox = document.getElementsByClassName('historycheck')
+            for (var i = 0; i < checkbox.length; i++) {
+                checkbox[i].checked = false;
+            }
+        }
+
+
+
+        for (var i = 0; i < checkbox.length; i++) {
+            if (checkbox[i].checked) {
+                items.push(checkbox[i])
+            }
+        }
+        if (items.length >= 1) {
+            $('#historydelete').removeAttr('disabled');
+            $('#interestadd').removeAttr('disabled');
+        }
+        else {
+            $('#historydelete').attr('disabled', true);
+            $('#interestadd').attr('disabled', true);
+
+        }
+    })
+
+    $('.historycheck').click(function () {
+        var items = []
+        var checkboxes = document.getElementsByClassName('historycheck')
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                items.push(checkboxes[i])
+            }
+        }
+        if (items.length >= 1) {
+            $('#historydelete').removeAttr('disabled');
+            $('#interestadd').removeAttr('disabled');
+        }
+        else {
+            $('#historydelete').attr('disabled', true);
+            $('#interestadd').attr('disabled', true);
+
+        }
+    });
+
+
+
+
+
+
+
+
 
 
 

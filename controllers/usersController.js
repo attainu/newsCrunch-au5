@@ -196,6 +196,37 @@ module.exports.postUserUpdate = function (req, res) {
 }
 
 
+//...............................delete history route............................//
+
+module.exports.postDeleteHistory = function (req, res){
+    var deleteitems = req.body.history
+    UserModel.findOne({_id:req.session.user.id}, function(err, result){
+        if(err){
+            console.log(err)
+        }
+        else{
+            var newitems = result.history.filter(function(e){
+                 if(deleteitems.includes(e)==false)
+                  return e
+                })
+
+            UserModel.updateOne({_id: result.id}, { $set: {'history': newitems}}, function(err, result){
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    res.redirect('back')
+                }
+            })
+            
+
+        }
+
+    })
+    
+}
+
+
 
 
 //<----------------------------------Logout post route---------------------------->
