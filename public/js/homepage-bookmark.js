@@ -5,9 +5,6 @@ $(document).ready(function () {
         $(".list-group").toggle();
     });
 
-
-
-
     //...................................................MODAL...................................................//
     function showmodal() {
         $('.newsCards').click(function () {
@@ -89,10 +86,8 @@ $(document).ready(function () {
 
 
     //<----------------Add bookmark-------------->
-
     $('.bookmark').click(function () {
         var id = $(".userId").val()
-
         if (id) {
             $(this).removeClass('far');
             $(this).addClass('fas');
@@ -124,9 +119,14 @@ $(document).ready(function () {
                 datatype: 'JSON',
                 url: "/bookmark",
                 data: bookmark,
-                success: function (response) {
-                    console.log(response)
-                }
+                statusCode:{
+                   409:function(){
+                       alert("Already you have bookmarked this news")
+                   },
+                   200:function(){
+                       alert("Bookmark added succesfully")
+                   }
+               }
             })
         } else {
             window.location.href = "/login"
