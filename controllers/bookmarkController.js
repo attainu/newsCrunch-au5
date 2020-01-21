@@ -49,6 +49,7 @@ module.exports.postBookmark = function (req, res) {
                         if (user.bookmark) {
                             bookmarkArr = user.bookmark
                             bookmarkArr.unshift(bookmark)
+
                         }
                         else {
                             bookmarkArr.push(bookmark)

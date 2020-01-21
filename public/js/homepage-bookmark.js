@@ -151,6 +151,8 @@ $(document).ready(function () {
                 statusCode:{
                    409:function(){
                        alert("This article is already bookmarked")
+
+
                    }
                }
             })
