@@ -1,4 +1,33 @@
 $(document).ready(function () {
+    
+    const savedBookmarksLength =$('.savedBookmarks').length 
+    let savedBookMarksTitle = $('.savedBookmarks')
+   // console.log("savedbookmarkarrlength",savedBookmarksLength)
+   const  savedBookmarksTitleArr  = [];
+   for(let i=0;i<savedBookmarksLength;i++){
+    savedBookmarksTitleArr.push(savedBookMarksTitle.eq(i).val())
+}
+//console.log('savedBookmarksTitleArr',savedBookmarksTitleArr)
+    const newCardLength =$('.newsCards').length 
+   // console.log("newCardLength",savedBookmarksLength)
+    const  newsCardTitlesArr  = [];
+
+    for(let i=0;i<newCardLength;i++){
+        savedBookmarksTitleArr.map( (title)=>{
+              //  console.log('newsTitle:',$('.newsCards #title-' + i).val())
+               // console.log('title',title)
+                if(title == $('.newsCards #title-' + i).val()){
+                        console.log('match:',title);
+                        $('#bookmark-'+ i).removeClass('far');
+                        $('#bookmark-'+ i).addClass('fas');
+                        $('#bookmark-'+ i).css('color', 'green');
+                }
+        })
+        
+    }
+    
+    
+
     //...................................................CATEGORIES...................................................//
 
     $("#newscrunch").click(function () {
@@ -208,26 +237,5 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
-
 
