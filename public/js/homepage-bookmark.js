@@ -1,12 +1,38 @@
 $(document).ready(function () {
+    
+    const savedBookmarksLength =$('.savedBookmarks').length 
+    let savedBookMarksTitle = $('.savedBookmarks')
+   // console.log("savedbookmarkarrlength",savedBookmarksLength)
+   const  savedBookmarksTitleArr  = [];
+   for(let i=0;i<savedBookmarksLength;i++){
+    savedBookmarksTitleArr.push(savedBookMarksTitle.eq(i).val())
+}
+//console.log('savedBookmarksTitleArr',savedBookmarksTitleArr)
+    const newCardLength =$('.newsCards').length 
+   // console.log("newCardLength",savedBookmarksLength)
+    const  newsCardTitlesArr  = [];
+
+    for(let i=0;i<newCardLength;i++){
+        savedBookmarksTitleArr.map( (title)=>{
+              //  console.log('newsTitle:',$('.newsCards #title-' + i).val())
+               // console.log('title',title)
+                if(title == $('.newsCards #title-' + i).val()){
+                        console.log('match:',title);
+                        $('#bookmark-'+ i).removeClass('far');
+                        $('#bookmark-'+ i).addClass('fas');
+                        $('#bookmark-'+ i).css('color', 'green');
+                }
+        })
+        
+    }
+    
+    
+
     //...................................................CATEGORIES...................................................//
 
     $("#newscrunch").click(function () {
         $(".list-group").toggle();
     });
-
-
-
 
     //...................................................MODAL...................................................//
     function showmodal() {
@@ -89,10 +115,8 @@ $(document).ready(function () {
 
 
     //<----------------Add bookmark-------------->
-
     $('.bookmark').click(function () {
         var id = $(".userId").val()
-
         if (id) {
             $(this).removeClass('far');
             $(this).addClass('fas');
@@ -124,9 +148,11 @@ $(document).ready(function () {
                 datatype: 'JSON',
                 url: "/bookmark",
                 data: bookmark,
-                success: function (response) {
-                    console.log(response)
-                }
+                statusCode:{
+                   409:function(){
+                       alert("This article is already bookmarked")
+                   }
+               }
             })
         } else {
             window.location.href = "/login"
@@ -207,21 +233,51 @@ $(document).ready(function () {
 
 
 
+    //...................................PUBLISHED AT...............................//
 
 
+    function gettime(date) {
+        var mydate = date.getTime()   
+    
+        var seconds = Math.floor((new Date() - mydate) / 1000);
+    
+      var interval = Math.floor(seconds / 31536000);
+    
+      if (interval > 1) {
+        return interval + " years ago";
+      }
+      interval = Math.floor(seconds / 2592000);
+      if (interval > 1) {
+        return interval + " months ago";
+      }
+      interval = Math.floor(seconds / 86400);
+      if (interval > 1) {
+        return interval + " days ago";
+      }
+      interval = Math.floor(seconds / 3600);
+      if (interval > 1) {
+        return interval + " hours ago";
+      }
+      interval = Math.floor(seconds / 60);
+      if (interval > 1) {
+        return interval + " minutes ago";
+      }
+      return Math.floor(seconds) + " seconds ago";
+    
+    }
+
+    var publishedAt = $('.publishedAt')
+    
+    console.log(publishedAt[1].value)
 
 
-
-
-
-
-
-
-
-
-
-
-
+    for(i=0;i<publishedAt.length;i++){
+        var eachtime = publishedAt[i].value
+        console.log(eachtime)
+        var time = gettime(new Date(eachtime))
+        console.log(time)
+        $('.time').eq(i).html(time)
+    }
 
 
 
@@ -229,5 +285,3 @@ $(document).ready(function () {
 
 
 });
-
-

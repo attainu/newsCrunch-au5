@@ -18,12 +18,15 @@ module.exports.homepage = function (req, res) {
     }).then(function (response) {
         var topHeadlines = true;
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {         
+            const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
+      
                 res.render('homepage', {
                     user: user,
                     topHeadlines: topHeadlines,
                     news: response.articles,
+                    savedBookmarkArr:savedBookmarkArr
+                    
                 })
             })
 
@@ -54,12 +57,13 @@ module.exports.getWorld = function (req, res) {
     }).then(function (response) {
         var world = true;
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 res.render('homepage', {
                     user: user,
                     world: world,
-                    news: response.articles
+                    news: response.articles,
+                    savedBookmarkArr:savedBookmarkArr
                 })
             })
         } else {
@@ -87,8 +91,8 @@ module.exports.getBusiness = function (req, res) {
     }).then(function (response) {
         var business = true;
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -100,7 +104,8 @@ module.exports.getBusiness = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         business: business,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -139,8 +144,8 @@ module.exports.getEntertainment = function (req, res) {
     }).then(function (response) {
         var entertainment = true
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -152,7 +157,8 @@ module.exports.getEntertainment = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         entertainment: entertainment,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -191,8 +197,8 @@ module.exports.getGeneral = function (req, res) {
     }).then(function (response) {
         var general = true
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -204,7 +210,8 @@ module.exports.getGeneral = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         general: general,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -221,6 +228,7 @@ module.exports.getGeneral = function (req, res) {
                 res.render('homepage', {
                     general: general,
                     news: response.articles
+                    
                 })
             })
         }
@@ -242,8 +250,8 @@ module.exports.getHealth = function (req, res) {
     }).then(function (response) {
         var health = true;
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err,user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -255,7 +263,8 @@ module.exports.getHealth = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         health: health,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -293,8 +302,8 @@ module.exports.getScience = function (req, res) {
     }).then(function (response) {
         var science = true
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -306,7 +315,8 @@ module.exports.getScience = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         science: science,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -344,8 +354,8 @@ module.exports.getSports = function (req, res) {
     }).then(function (response) {
         var sports = true
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -357,7 +367,8 @@ module.exports.getSports = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         sports: sports,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -395,8 +406,8 @@ module.exports.getTechnology = function (req, res) {
     }).then(function (response) {
         var technology = true
         if (req.session.user) {
-            UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-                var user = result
+            UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+                const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
                 var sources = response.sources.map(function (a) {
                     return a.id
                 })
@@ -408,7 +419,8 @@ module.exports.getTechnology = function (req, res) {
                     res.render('homepage', {
                         user: user,
                         technology: technology,
-                        news: response.articles
+                        news: response.articles,
+                        savedBookmarkArr:savedBookmarkArr
                     })
                 })
             })
@@ -433,31 +445,38 @@ module.exports.getTechnology = function (req, res) {
 
 //<----------------------------------Search route--------------------------->
 
-module.exports.postSearch = function (req, res) {
+module.exports.getSearch = function (req, res) {
+    if (req.query.page) {
+        var page = req.query.page
+    }
+    else {
+        var page = 1
+    }
     if(req.session.user){
-        UserModel.findOne({ _id: req.session.user.id }, function (err, result) {
-            var user = result
+        UserModel.findOne({ _id: req.session.user.id }, function (err, user) {
+            const savedBookmarkArr = user.bookmark.map(bookmark=>bookmark.title)
             newsapi.v2.everything({
-                pageSize: 100,
                 language: 'en',
-                qInTitle: req.body.search
+                qInTitle: req.query.q,
+                page: page
             }).then(function (response) {
-                var search = true;
+                var search = req.query.q;
                 res.render('homepage', {
                     user: user,
                     search: search,
-                    news: response.articles
+                    news: response.articles,
+                    savedBookmarkArr:savedBookmarkArr
                 })
             })
         })
     }
     else{
         newsapi.v2.everything({
-            pageSize: 100,
             language: 'en',
-            qInTitle: req.body.search
+            qInTitle: req.query.q,
+            page: page
         }).then(function (response) {
-            var search = true;
+            var search = req.query.q;
             res.render('homepage', {
                 search: search,
                 news: response.articles

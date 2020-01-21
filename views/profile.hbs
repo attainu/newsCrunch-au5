@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-md-3 offset-md-1 mt-5">
                             <p><a href="#" class="btn btn-sm btn-outline-success"><i id="edit" class="fa fa-pencil"
-                                        data-toggle="modal" data-target="#myModal">Edit Profile</i></a></p>
+                                        data-toggle="modal" data-target="#myModal"> Edit Profile</i></a></p>
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Update</h4>
+                    <h4 class="modal-title">Edit profile</h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
@@ -146,9 +146,9 @@
                         <label for="name" class="mt-3">Details</label>
                         <input type="text" class="form-control mt-1" name="name" placeholder="Full name"
                             value="{{user.name}}">
-                        <input type="number" class="form-control mt-3" name="phone" placeholder="Phone number"
-                            value="{{user.phone}}" minlength="6">
-                        <input type="num" class="form-control mt-3" name="age" placeholder="Age" value="{{user.age}}">
+                        <input type="tel" class="form-control mt-3" name="phone" placeholder="Phone number"
+                            value="{{user.phone}}" pattern="[789][0-9]{9}">
+                        <input type="number" class="form-control mt-3" name="age" placeholder="Age" value="{{user.age}}" maxlength="3">
                         <select name="country" class="countries select form-control mt-3" id="countryId" required>
                             <option value="{{user.country}}">Select Country</option>
                         </select>

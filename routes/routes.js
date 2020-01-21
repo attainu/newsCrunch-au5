@@ -19,7 +19,7 @@ router.get('/login', userController.getLogin)
 router.post('/login', userController.postLogin)
 
 //<-------------search route----------------->
-router.post('/search', categoryController.postSearch)
+router.get('/search', categoryController.getSearch)
 
 //<-------------categories route----------------->
 router.get('/world', categoryController.getWorld)

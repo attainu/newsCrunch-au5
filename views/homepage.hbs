@@ -25,8 +25,8 @@
                     class="text-success">news</span><span class="text-light">Crunch</span></a>
             <div class="has-search col-6 offset-md-1 offset-sm-1">
                 <span class="fa fa-search form-control-feedback"></span>
-                <form action="/search" method="POST">
-                <input type="text" class="form-control submit_on_enter" placeholder="Search" id="search" name="search">
+                <form action="/search" method="GET">
+                <input type="text" class="form-control submit_on_enter" placeholder="Search" id="search" name="q">
                 </form>
             </div>
             {{!-- <input class="input-group input-group-sm form-control col-6 offset-md-1 offset-sm-1" type="text"
@@ -179,9 +179,14 @@
                                 {{query}}
                                 {{/if}}
                                 {{#if search}}
-                                Search
+                                Search results for {{search}}.
                                 {{/if}}
                             </h4>
+                            <div >
+                            {{#each savedBookmarkArr}}
+                            <input type="hidden" class="savedBookmarks" value="{{this}}" id="savedBookmarkArr-{{@index}}">
+                            {{/each}}
+                            </div>
                             <div class="p-3 news">
                                 {{#each news}}
                                 <div class="card mb-3 shadow" style="max-width: 100%;">
@@ -192,7 +197,7 @@
                                         <input type="hidden" value="{{this.description}}" id="description-{{@index}}">
                                         <input type="hidden" value="{{this.url}}" id="url-{{@index}}">
                                         <input type="hidden" value="{{this.urlToImage}}" id="urlToImage-{{@index}}">
-                                        <input type="hidden" value="{{this.publishedAt}}" id="publishedAt-{{@index}}">
+                                        <input type="hidden" value="{{this.publishedAt}}"id="publishedAt-{{@index}}" class="publishedAt">
                                         <input type="hidden" value="{{this.content}}" id="content-{{@index}}">
                                         <div class="row no-gutters">
                                             <div class="col-md-3 text-center">
@@ -203,8 +208,7 @@
                                                 <div class="card-body ml-3">
                                                     <h6 class="card-title">{{this.title}}</h6>
                                                     <p class="card-text">{{this.source.name}}</p>
-                                                    <p class="card-text"><small
-                                                            class="text-muted">{{this.publishedAt}}</small></p>
+                                                    <p class="card-text"><small class="text-muted time"></small></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,7 +244,16 @@
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?q={{query}}&page=5">5</a></li>
                                                 {{else if search}}
-
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{search}}&page=1">1</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{search}}&page=2">2</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{search}}&page=3">3</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{search}}&page=4">4</a></li>
+                                                <li class="page-item "><a class="page-link bg-success text-white"
+                                                        href="?q={{search}}&page=5">5</a></li>
                                                 {{else}}
                                                 <li class="page-item "><a class="page-link bg-success text-white"
                                                         href="?page=1">1</a></li>
@@ -384,5 +397,6 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 <script src="js/homepage-bookmark.js"></script>
+
 
 </html>
