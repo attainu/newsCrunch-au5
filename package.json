@@ -22,7 +22,7 @@
     "cloudinary": "^1.18.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "hbs": "^4.1.0",
+    "hbs": "^4.2.0",
     "mongoose": "^5.8.7",
     "multiparty": "^4.2.1",
     "newsapi": "^2.4.0"
