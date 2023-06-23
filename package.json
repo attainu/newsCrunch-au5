@@ -23,7 +23,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "hbs": "^4.1.0",
-    "mongoose": "^5.8.7",
+    "mongoose": "^5.13.19",
     "multiparty": "^4.2.1",
     "newsapi": "^2.4.0"
   }
